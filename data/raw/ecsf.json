@@ -1,0 +1,2932 @@
+{
+  "work_role": [
+    {
+      "title": "Chief Information Security Officer (CISO)",
+      "alternative_title(s)": [
+        "Cybersecurity Programme Director",
+        "Information Security Officer (ISO)",
+        "Information Security Manager",
+        "Head of Information Security",
+        "IT/ICT Security Officer"
+      ],
+      "summary_statement": "Manages an organisation\u2019s cybersecurity strategy and its implementation to ensure that digital systems, services and assets are adequately secure and protected.",
+      "mission": "Defines, maintains and communicates the cybersecurity vision, strategy, policies and procedures. Manages the implementation of the cybersecurity policy across the organisation. Assures information exchange with external authorities and professional bodies.",
+      "id": 1
+    },
+    {
+      "title": "Cyber Incident Responder",
+      "alternative_title(s)": [
+        "Cyber Incident Handler",
+        "Cyber Crisis Expert",
+        "Incident Response Engineer",
+        "Security Operations Center (SOC) Analyst",
+        "Cyber Fighter /Defender",
+        "Security Operation Analyst (SOC Analyst)",
+        "Cybersecurity SIEM Manager"
+      ],
+      "summary_statement": "Monitor the organisation\u2019s cybersecurity state, handle incidents during cyber-attacks and assure the continued operations of ICT systems.",
+      "mission": "Monitors and assesses systems\u2019 cybersecurity state. Analyses, evaluates and mitigates the impact of cybersecurity incidents. Identifies cyber incidents root causes and malicious actors. According to the organisation\u2019s Incident Response Plan, restores systems\u2019 and processes\u2019 functionalities to an operational state, collecting evidences and documenting actions taken.",
+      "id": 2
+    },
+    {
+      "title": "Cyber Legal, Policy & Compliance Officer",
+      "alternative_title(s)": [
+        "Data Protection Officer (DPO)",
+        "Privacy Protection Officer",
+        "Cyber Law Consultant",
+        "Cyber Legal Advisor",
+        "Information Governance Officer",
+        "Data Compliance Officer",
+        "Cybersecurity Legal Officer",
+        "IT/ICT Compliance Manager",
+        "Governance Risk Compliance (GRC) Consultant"
+      ],
+      "summary_statement": "Manages compliance with cybersecurity-related standards, legal and regulatory frameworks based on the organisation\u2019s strategy and legal requirements.",
+      "mission": "Oversees and assures compliance with cybersecurity- and data-related legal, regulatory frameworks and policies in line with the organisation\u2019s strategy and legal requirements. Contributes to the organisation\u2019s data protection related actions. Provides legal advice in the development of the organisation\u2019s cybersecurity governance processes and recommended remediation strategies/solutions to ensure compliance.",
+      "id": 3
+    },
+    {
+      "title": "Cyber Threat Intelligence Specialist",
+      "alternative_title(s)": [
+        "Cyber Intelligence Analyst",
+        "Cyber Threat Modeller"
+      ],
+      "summary_statement": "Collect, process, analyse data and information to produce actionable intelligence reports and disseminate them to target stakeholders.",
+      "mission": "Manages cyber threat intelligence life cycle including cyber threat information collection, analysis and production of actionable intelligence and dissemination to security stakeholders and the CTI community, at a tactical, operational and strategic level. Identifies and monitors the Tactics, Techniques and Procedures (TTPs) used by cyber threat actors and their trends, track threat actors\u2019 activities and observe how non-cyber events can influence cyber-related actions.",
+      "id": 4
+    },
+    {
+      "title": "Cybersecurity Architect",
+      "alternative_title(s)": [
+        "Cybersecurity Solutions Architect",
+        "Cybersecurity Designer",
+        "Data Security Architect"
+      ],
+      "summary_statement": "Plans and designs security-by-design solutions (infrastructures, systems, assets, software, hardware and services) and cybersecurity controls.",
+      "mission": "Designs solutions based on security-by-design and privacy-by-design principles. Creates and continuously improves architectural models and develops appropriate architectural documentation and specifications. Coordinate secure development, integration and maintenance of cybersecurity components in line with standards and other related requirements.",
+      "id": 5
+    },
+    {
+      "title": "Cybersecurity Auditor",
+      "alternative_title(s)": [
+        "Information Security Auditor (IT or Legal Auditor)",
+        "Governance Risk Compliance (GRC) Auditor",
+        "Cybersecurity Audit Manager",
+        "Cybersecurity Procedures and Processes Auditor",
+        "Information Security Risk and Compliance Auditor",
+        "Data Protection Assessment Analyst"
+      ],
+      "summary_statement": "Perform cybersecurity audits on the organisation\u2019s ecosystem. Ensuring compliance with statutory, regulatory, policy information, security requirements, industry standards and best practices.",
+      "mission": "Conducts independent reviews to assess the effectiveness of processes and controls and the overall compliance with the organisation's legal and regulatory frameworks policies. Evaluates, tests and verifies cybersecurity-related products (systems, hardware, software and services), functions and policies ensuring, compliance with guidelines, standards and regulations.",
+      "id": 6
+    },
+    {
+      "title": "Cybersecurity Educator",
+      "alternative_title(s)": [
+        "Cybersecurity Awareness Specialist",
+        "Cybersecurity Trainer",
+        "Faculty in Cybersecurity (Professor, Lecturer)"
+      ],
+      "summary_statement": "Improves cybersecurity knowledge, skills and competencies of humans.",
+      "mission": "Designs, develops and conducts awareness, training and educational programmes in cybersecurity and data protection-related topics. Uses appropriate teaching and training methods, techniques and instruments to communicate and enhance the cybersecurity culture, capabilities, knowledge and skills of human resources. Promotes the importance of cybersecurity and consolidates it into the organisation.",
+      "id": 7
+    },
+    {
+      "title": "Cybersecurity Implementer",
+      "alternative_title(s)": [
+        "Information Security Implementer",
+        "Cybersecurity Solutions Expert",
+        "Cybersecurity Developer",
+        "Cybersecurity Engineer",
+        "Development, Security & Operations (DevSecOps) Engineer"
+      ],
+      "summary_statement": "Develop, deploy and operate cybersecurity solutions (systems, assets, software, controls and services) on infrastructures and products.",
+      "mission": "Provides cybersecurity-related technical development, integration, testing, implementation, operation, maintenance, monitoring and support of cybersecurity solutions. Ensures adherence to specifications and conformance requirements, assures sound performance and resolves technical issues required in the organisation\u2019s cybersecurity-related solutions (systems, assets, software, controls and services), infrastructures and products.",
+      "id": 8
+    },
+    {
+      "title": "Cybersecurity Researcher",
+      "alternative_title(s)": [
+        "Cybersecurity Research Engineer",
+        "Chief Research Officer (CRO) in cybersecurity",
+        "Senior Research Officer in cybersecurity",
+        "Research and Development (R&D) Officer in cybersecurity",
+        "Scientific Staff in cybersecurity",
+        "Research and Innovation Officer/Expert in cybersecurity",
+        "Research Fellow in cybersecurity"
+      ],
+      "summary_statement": "Research the cybersecurity domain and incorporate results in cybersecurity solutions.",
+      "mission": "Conducts fundamental/basic and applied research and facilitates innovation in the cybersecurity domain through cooperation with other stakeholders. Analyses trends and scientific findings in cybersecurity.",
+      "id": 9
+    },
+    {
+      "title": "Cybersecurity Risk Manager",
+      "alternative_title(s)": [
+        "Information Security Risk Analyst",
+        "Cybersecurity Risk Assurance Consultant",
+        "Cybersecurity Risk Assessor",
+        "Cybersecurity Impact Analyst",
+        "Cyber Risk Manager"
+      ],
+      "summary_statement": "Manage the organisation's cybersecurity-related risks aligned to the organisation\u2019s strategy. Develop, maintain and communicate the risk management processes and reports.",
+      "mission": "Continuously manages (identifies, analyses, assesses, estimates, mitigates) the cybersecurity-related risks of ICT infrastructures, systems and services by planning, applying, reporting and communicating risk analysis, assessment and treatment. Establishes a risk management strategy for the organisation and ensures that risks remain at an acceptable level for the organisation by selecting mitigation actions and controls.",
+      "id": 10
+    },
+    {
+      "title": "Digital Forensics Investigator",
+      "alternative_title(s)": [
+        "Digital Forensics Analyst",
+        "Cybersecurity & Forensic Specialist",
+        "Computer Forensics Consultant"
+      ],
+      "summary_statement": "Ensure the cybercriminal investigation reveals all digital evidence to prove the malicious activity.",
+      "mission": "Connects artefacts to natural persons, captures, recovers, identifies and preserves data, including manifestations, inputs, outputs and processes of digital systems under investigation. Provides analysis, reconstruction and interpretation of the digital evidence based on a qualitative opinion. Presents an unbiased qualitative view without interpreting the resultant findings.",
+      "id": 11
+    },
+    {
+      "title": "Penetration Tester",
+      "alternative_title(s)": [
+        "Pentester",
+        "Ethical Hacker",
+        "Vulnerability Analyst",
+        "Cybersecurity Tester",
+        "Offensive Cybersecurity Expert",
+        "Defensive Cybersecurity Expert",
+        "Red Team Expert",
+        "Red Teamer"
+      ],
+      "summary_statement": "Assess the effectiveness of security controls, reveals and utilise cybersecurity vulnerabilities, assessing their criticality if exploited by threat actors.",
+      "mission": "Plans, designs, implements and executes penetration testing activities and attack scenarios to evaluate the effectiveness of deployed or planned security measures. Identifies vulnerabilities or failures on technical and organisational controls that affect the confidentiality, integrity and availability of ICT products (e.g. systems, hardware, software and services).",
+      "id": 12
+    }
+  ],
+  "tks": [
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity policies",
+      "id": "K0001"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity standards, methodologies and frameworks",
+      "id": "K0002"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity recommendations and best practices",
+      "id": "K0003"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity related laws, regulations and legislations",
+      "id": "K0004"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity-related certifications",
+      "id": "K0005"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Ethical cybersecurity organisation requirements",
+      "id": "K0006"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity maturity models",
+      "id": "K0007"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity procedures",
+      "id": "K0008"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Resource management",
+      "id": "K0009"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Management practices",
+      "id": "K0010"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Risk management standards, methodologies and frameworks",
+      "id": "K0011"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Incident handling standards, methodologies and frameworks",
+      "id": "K0012"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Incident handling recommendations and best practices",
+      "id": "K0013"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Incident handling tools",
+      "id": "K0014"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Incident handling communication procedures",
+      "id": "K0015"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Operating systems security",
+      "id": "K0016"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Computer networks security",
+      "id": "K0017"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cyber threats",
+      "id": "K0018"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity attack procedures",
+      "id": "K0019"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Computer systems vulnerabilities",
+      "id": "K0020"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Secure Operation Centres (SOCs) operation",
+      "id": "K0021"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Computer Security Incident Response Teams (CSIRTs) operation",
+      "id": "K0022"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Legal, regulatory and legislative compliance requirements, recommendations and best practices",
+      "id": "K0023"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Privacy impact assessment standards, methodologies and frameworks",
+      "id": "K0024"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity controls and solutions",
+      "id": "K0025"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Computer programming",
+      "id": "K0026"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cyber Threat Intelligence (CTI) sharing standards, methodologies and frameworks",
+      "id": "K0027"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Responsible information disclosure procedures",
+      "id": "K0028"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cross-domain and border-domain knowledge related to cybersecurity",
+      "id": "K0029"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cyber threat actors",
+      "id": "K0030"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Advanced and persistent cyber threats (APT)",
+      "id": "K0031"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Threat actors Tactics, Techniques and Procedures (TTPs)",
+      "id": "K0032"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity-related requirements analysis",
+      "id": "K0033"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Secure development lifecycle",
+      "id": "K0034"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Security architecture reference models",
+      "id": "K0035"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity-related technologies",
+      "id": "K0036"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity risks",
+      "id": "K0037"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity trends",
+      "id": "K0038"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Legacy cybersecurity procedures",
+      "id": "K0039"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Privacy-Enhancing Technologies (PET)",
+      "id": "K0040"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Privacy-by-design standards, methodologies and frameworks",
+      "id": "K0041"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Monitoring, testing and evaluating cybersecurity controls' effectiveness",
+      "id": "K0042"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Conformity assessment standards, methodologies and frameworks",
+      "id": "K0043"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Auditing standards, methodologies and frameworks",
+      "id": "K0044"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Auditing-related certification",
+      "id": "K0045"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Pedagogical standards, methodologies and frameworks",
+      "id": "K0046"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity awareness, education and training programme development",
+      "id": "K0047"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity education and training standards, methodologies and frameworks",
+      "id": "K0048"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Offensive and defensive security practices",
+      "id": "K0049"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Secure coding recommendations and best practices",
+      "id": "K0050"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Testing standards, methodologies and frameworks",
+      "id": "K0051"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Testing procedures",
+      "id": "K0052"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Cybersecurity-related research, development and innovation (RDI)",
+      "id": "K0053"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Legal, regulatory and legislative requirements on releasing or using cybersecurity related technologies",
+      "id": "K0054"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Multidiscipline aspect of cybersecurity",
+      "id": "K0055"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Risk management tools",
+      "id": "K0056"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Risk management recommendations and best practices",
+      "id": "K0057"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Digital forensics recommendations and best practices",
+      "id": "K0058"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Digital forensics standards, methodologies and frameworks",
+      "id": "K0059"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Digital forensics analysis procedures",
+      "id": "K0060"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Criminal investigation procedures, standards, methodologies and frameworks",
+      "id": "K0061"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Malware analysis tools",
+      "id": "K0062"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Information technology (IT) and operational technology (OT) appliances",
+      "id": "K0063"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Offensive and defensive security procedures",
+      "id": "K0064"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Penetration testing procedures",
+      "id": "K0065"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Penetration testing standards, methodologies and frameworks",
+      "id": "K0066"
+    },
+    {
+      "type": "Knowledge",
+      "description": "Penetration testing tools",
+      "id": "K0067"
+    },
+    {
+      "type": "Skill",
+      "description": "Assess and enhance an organisation\u2019s cybersecurity posture",
+      "id": "S0001"
+    },
+    {
+      "type": "Skill",
+      "description": "Analyse and implement cybersecurity policies, certifications, standards, methodologies and frameworks",
+      "id": "S0002"
+    },
+    {
+      "type": "Skill",
+      "description": "Analyse and comply with cybersecurity-related laws, regulations and legislations",
+      "id": "S0003"
+    },
+    {
+      "type": "Skill",
+      "description": "Implement cybersecurity recommendations and best practices",
+      "id": "S0004"
+    },
+    {
+      "type": "Skill",
+      "description": "Manage cybersecurity resources",
+      "id": "S0005"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop, champion and lead the execution of a cybersecurity strategy",
+      "id": "S0006"
+    },
+    {
+      "type": "Skill",
+      "description": "Influence an organisation\u2019s cybersecurity culture",
+      "id": "S0007"
+    },
+    {
+      "type": "Skill",
+      "description": "Design, apply, monitor and review Information Security Management System (ISMS) either directly or by leading its outsourcing",
+      "id": "S0008"
+    },
+    {
+      "type": "Skill",
+      "description": "Review and enhance security documents, reports, SLAs and ensure the security objectives",
+      "id": "S0009"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify and solve cybersecurity-related issues",
+      "id": "S0010"
+    },
+    {
+      "type": "Skill",
+      "description": "Establish a cybersecurity plan",
+      "id": "S0011"
+    },
+    {
+      "type": "Skill",
+      "description": "Communicate, coordinate and cooperate with internal and external stakeholders",
+      "id": "S0012"
+    },
+    {
+      "type": "Skill",
+      "description": "Anticipate required changes to the organisation\u2019s information security strategy and formulate new plans",
+      "id": "S0013"
+    },
+    {
+      "type": "Skill",
+      "description": "Define and apply maturity models for cybersecurity management",
+      "id": "S0014"
+    },
+    {
+      "type": "Skill",
+      "description": "Anticipate cybersecurity threats, needs and upcoming challenges",
+      "id": "S0015"
+    },
+    {
+      "type": "Skill",
+      "description": "Motivate and encourage people",
+      "id": "S0016"
+    },
+    {
+      "type": "Skill",
+      "description": "Practice all technical, functional and operational aspects of cybersecurity incident handling and response",
+      "id": "S0017"
+    },
+    {
+      "type": "Skill",
+      "description": "Collect, analyse and correlate cyber threat information originating from multiple sources",
+      "id": "S0018"
+    },
+    {
+      "type": "Skill",
+      "description": "Work on operating systems, servers, clouds and relevant infrastructures",
+      "id": "S0019"
+    },
+    {
+      "type": "Skill",
+      "description": "Work under pressure",
+      "id": "S0020"
+    },
+    {
+      "type": "Skill",
+      "description": "Communicate, present and report to relevant stakeholders",
+      "id": "S0021"
+    },
+    {
+      "type": "Skill",
+      "description": "Manage and analyse log files",
+      "id": "S0022"
+    },
+    {
+      "type": "Skill",
+      "description": "Comprehensive understanding of the business strategy, models and products and ability to factor into legal, regulatory and standards\u2019 requirements",
+      "id": "S0023"
+    },
+    {
+      "type": "Skill",
+      "description": "Carry out working-life practices of the data protection and privacy issues involved in the implementation of the organisational processes, finance and business strategy",
+      "id": "S0024"
+    },
+    {
+      "type": "Skill",
+      "description": "Lead the development of appropriate cybersecurity and privacy policies and procedures that complement the business needs and legal requirements; further ensure its acceptance, comprehension and implementation and communicate it between the involved parties",
+      "id": "S0025"
+    },
+    {
+      "type": "Skill",
+      "description": "Conduct, monitor and review privacy impact assessments using standards, frameworks, acknowledged methodologies and tools",
+      "id": "S0026"
+    },
+    {
+      "type": "Skill",
+      "description": "Explain and communicate data protection and privacy topics to stakeholders and users",
+      "id": "S0027"
+    },
+    {
+      "type": "Skill",
+      "description": "Understand, practice and adhere to ethical requirements and standards",
+      "id": "S0028"
+    },
+    {
+      "type": "Skill",
+      "description": "Understand legal framework modifications implications to the organisation\u2019s cybersecurity and data protection strategy and policies",
+      "id": "S0029"
+    },
+    {
+      "type": "Skill",
+      "description": "Collaborate with other team members and colleagues",
+      "id": "S0030"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify threat actors TTPs and campaigns",
+      "id": "S0031"
+    },
+    {
+      "type": "Skill",
+      "description": "Automate threat intelligence management procedures",
+      "id": "S0032"
+    },
+    {
+      "type": "Skill",
+      "description": "Conduct technical analysis and reporting",
+      "id": "S0033"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify non-cyber events with implications on cyber-related activities",
+      "id": "S0034"
+    },
+    {
+      "type": "Skill",
+      "description": "Model threats, actors and TTPs",
+      "id": "S0035"
+    },
+    {
+      "type": "Skill",
+      "description": "Use and apply CTI platforms and tools",
+      "id": "S0036"
+    },
+    {
+      "type": "Skill",
+      "description": "Conduct user and business security requirements analysis",
+      "id": "S0037"
+    },
+    {
+      "type": "Skill",
+      "description": "Draw cybersecurity architectural and functional specifications",
+      "id": "S0038"
+    },
+    {
+      "type": "Skill",
+      "description": "Decompose and analyse systems to develop security and privacy requirements and identify effective solutions",
+      "id": "S0039"
+    },
+    {
+      "type": "Skill",
+      "description": "Design systems and architectures based on security and privacy by design and by defaults cybersecurity principles",
+      "id": "S0040"
+    },
+    {
+      "type": "Skill",
+      "description": "Guide and communicate with implementers and IT/OT personnel",
+      "id": "S0041"
+    },
+    {
+      "type": "Skill",
+      "description": "Propose cybersecurity architectures based on stakeholder\u2019s needs and budget",
+      "id": "S0042"
+    },
+    {
+      "type": "Skill",
+      "description": "Select appropriate specifications, procedures and controls",
+      "id": "S0043"
+    },
+    {
+      "type": "Skill",
+      "description": "Build resilience against points of failure across the architecture",
+      "id": "S0044"
+    },
+    {
+      "type": "Skill",
+      "description": "Coordinate the integration of security solutions",
+      "id": "S0045"
+    },
+    {
+      "type": "Skill",
+      "description": "Organise and work in a systematic and deterministic way based on evidence",
+      "id": "S0046"
+    },
+    {
+      "type": "Skill",
+      "description": "Follow and practice auditing frameworks, standards and methodologies",
+      "id": "S0047"
+    },
+    {
+      "type": "Skill",
+      "description": "Apply auditing tools and techniques",
+      "id": "S0048"
+    },
+    {
+      "type": "Skill",
+      "description": "Analyse business processes, assess and review software or hardware security, as well as technical and organisational controls",
+      "id": "S0049"
+    },
+    {
+      "type": "Skill",
+      "description": "Decompose and analyse systems to identify weaknesses and ineffective controls",
+      "id": "S0050"
+    },
+    {
+      "type": "Skill",
+      "description": "Communicate, explain and adapt legal and regulatory requirements and business needs",
+      "id": "S0051"
+    },
+    {
+      "type": "Skill",
+      "description": "Collect, evaluate, maintain and protect auditing information",
+      "id": "S0052"
+    },
+    {
+      "type": "Skill",
+      "description": "Audit with integrity, being impartial and independent",
+      "id": "S0053"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify needs in cybersecurity awareness, training and education",
+      "id": "S0054"
+    },
+    {
+      "type": "Skill",
+      "description": "Design, develop and deliver learning programmes to cover cybersecurity needs",
+      "id": "S0055"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop cybersecurity exercises including simulations using cyber range environments",
+      "id": "S0056"
+    },
+    {
+      "type": "Skill",
+      "description": "Provide training towards cybersecurity and data protection professional certifications",
+      "id": "S0057"
+    },
+    {
+      "type": "Skill",
+      "description": "Utilise existing cybersecurity-related training resources",
+      "id": "S0058"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop evaluation programs for the awareness, training and education activities",
+      "id": "S0059"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify and select appropriate pedagogical approaches for the intended audience",
+      "id": "S0060"
+    },
+    {
+      "type": "Skill",
+      "description": "Integrate cybersecurity solutions to the organisation\u2019s infrastructure",
+      "id": "S0061"
+    },
+    {
+      "type": "Skill",
+      "description": "Configure solutions according to the organisation\u2019s security policy",
+      "id": "S0062"
+    },
+    {
+      "type": "Skill",
+      "description": "Assess the security and performance of solutions",
+      "id": "S0063"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop code, scripts and programmes",
+      "id": "S0064"
+    },
+    {
+      "type": "Skill",
+      "description": "Generate new ideas and transfer theory into practice",
+      "id": "S0065"
+    },
+    {
+      "type": "Skill",
+      "description": "Monitor new advancements in cybersecurity-related technologies",
+      "id": "S0066"
+    },
+    {
+      "type": "Skill",
+      "description": "Implement cybersecurity risk management frameworks, methodologies and guidelines and ensure compliance with regulations and standards",
+      "id": "S0067"
+    },
+    {
+      "type": "Skill",
+      "description": "Analyse and consolidate organisation\u2019s quality and risk management practices",
+      "id": "S0068"
+    },
+    {
+      "type": "Skill",
+      "description": "Enable business assets owners, executives and other stakeholders to make risk- informed decisions to manage and mitigate risks",
+      "id": "S0069"
+    },
+    {
+      "type": "Skill",
+      "description": "Build a cybersecurity risk-aware environment",
+      "id": "S0070"
+    },
+    {
+      "type": "Skill",
+      "description": "Propose and manage risk-sharing options",
+      "id": "S0071"
+    },
+    {
+      "type": "Skill",
+      "description": "Work ethically and independently; not influenced and biased by internal or external actors",
+      "id": "S0072"
+    },
+    {
+      "type": "Skill",
+      "description": "Collect information while preserving its integrity",
+      "id": "S0073"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify, analyse and correlate cybersecurity events",
+      "id": "S0074"
+    },
+    {
+      "type": "Skill",
+      "description": "Explain and present digital evidence in a simple, straightforward and easy to understand way",
+      "id": "S0075"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop and communicate, detailed and reasoned investigation reports",
+      "id": "S0076"
+    },
+    {
+      "type": "Skill",
+      "description": "Develop codes, scripts and programmes",
+      "id": "S0077"
+    },
+    {
+      "type": "Skill",
+      "description": "Perform social engineering",
+      "id": "S0078"
+    },
+    {
+      "type": "Skill",
+      "description": "Identify and exploit vulnerabilities",
+      "id": "S0079"
+    },
+    {
+      "type": "Skill",
+      "description": "Conduct ethical hacking",
+      "id": "S0080"
+    },
+    {
+      "type": "Skill",
+      "description": "Think creatively and outside the box",
+      "id": "S0081"
+    },
+    {
+      "type": "Skill",
+      "description": "Use penetration testing tools effectively",
+      "id": "S0082"
+    },
+    {
+      "type": "Skill",
+      "description": "Review codes assess their security",
+      "id": "S0083"
+    },
+    {
+      "type": "Task",
+      "description": "Define, implement, communicate and maintain cybersecurity goals, requirements, strategies, policies, aligned with the business strategy to support the organisational objectives",
+      "id": "T0001"
+    },
+    {
+      "type": "Task",
+      "description": "Prepare and present cybersecurity vision, strategies and policies for approval by the senior management of the organisation and ensure their execution",
+      "id": "T0002"
+    },
+    {
+      "type": "Task",
+      "description": "Supervise the application and improvement of the Information Security Management System (ISMS)",
+      "id": "T0003"
+    },
+    {
+      "type": "Task",
+      "description": "Educate senior management about cybersecurity risks, threats and their impact to the organisation",
+      "id": "T0004"
+    },
+    {
+      "type": "Task",
+      "description": "Ensure the senior management approves the cybersecurity risks of the organisation - Develop cybersecurity plans",
+      "id": "T0005"
+    },
+    {
+      "type": "Task",
+      "description": "Develop relationships with cybersecurity-related authorities and communities",
+      "id": "T0006"
+    },
+    {
+      "type": "Task",
+      "description": "Report cybersecurity incidents, risks, findings to the senior management",
+      "id": "T0007"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor advancement in cybersecurity",
+      "id": "T0008"
+    },
+    {
+      "type": "Task",
+      "description": "Secure resources to implement the cybersecurity strategy",
+      "id": "T0009"
+    },
+    {
+      "type": "Task",
+      "description": "Negotiate the cybersecurity budget with the senior management - Ensure the organisation\u2019s resiliency to cyber incidents",
+      "id": "T0010"
+    },
+    {
+      "type": "Task",
+      "description": "Manage continuous capacity building within the organisation",
+      "id": "T0011"
+    },
+    {
+      "type": "Task",
+      "description": "Review, plan and allocate appropriate cybersecurity resources",
+      "id": "T0012"
+    },
+    {
+      "type": "Task",
+      "description": "Contribute to the development, maintenance and assessment of the Incident Response Plan",
+      "id": "T0013"
+    },
+    {
+      "type": "Task",
+      "description": "Develop, implement and assess procedures related to incident handling",
+      "id": "T0014"
+    },
+    {
+      "type": "Task",
+      "description": "Identify, analyse, mitigate and communicate cybersecurity incidents",
+      "id": "T0015"
+    },
+    {
+      "type": "Task",
+      "description": "Assess and manage technical vulnerabilities",
+      "id": "T0016"
+    },
+    {
+      "type": "Task",
+      "description": "Measure cybersecurity incidents detection and response effectiveness",
+      "id": "T0017"
+    },
+    {
+      "type": "Task",
+      "description": "Evaluate the resilience of the cybersecurity controls and mitigation actions taken after a cybersecurity or data breach incident",
+      "id": "T0018"
+    },
+    {
+      "type": "Task",
+      "description": "Adopt and develop incident handling testing techniques",
+      "id": "T0019"
+    },
+    {
+      "type": "Task",
+      "description": "Establish procedures for incident results analysis and incident handling reporting",
+      "id": "T0020"
+    },
+    {
+      "type": "Task",
+      "description": "Document incident results analysis and incident handling actions",
+      "id": "T0021"
+    },
+    {
+      "type": "Task",
+      "description": "Cooperate with Secure Operation Centres (SOCs) and Computer Security Incident Response Teams (CSIRTs)",
+      "id": "T0022"
+    },
+    {
+      "type": "Task",
+      "description": "Cooperate with key personnel for reporting of security incidents according to applicable legal framework",
+      "id": "T0023"
+    },
+    {
+      "type": "Task",
+      "description": "Ensure compliance with and provide legal advice and guidance on data privacy and data protection standards, laws and regulations",
+      "id": "T0024"
+    },
+    {
+      "type": "Task",
+      "description": "Identify and document compliance gaps",
+      "id": "T0025"
+    },
+    {
+      "type": "Task",
+      "description": "Conduct privacy impact assessments and develop, maintain, communicate and train upon the privacy policies, procedures",
+      "id": "T0026"
+    },
+    {
+      "type": "Task",
+      "description": "Enforce and advocate organisation\u2019s data privacy and protection program",
+      "id": "T0027"
+    },
+    {
+      "type": "Task",
+      "description": "Ensure that data owners, holders, controllers, processors, subjects, internal or external partners and entities are informed about their data protection rights, obligations and responsibilities",
+      "id": "T0028"
+    },
+    {
+      "type": "Task",
+      "description": "Act as a key contact point to handle queries and complaints regarding data processing",
+      "id": "T0029"
+    },
+    {
+      "type": "Task",
+      "description": "Assist in designing, implementing, auditing and compliance testing activities in order to ensure cybersecurity and privacy compliance",
+      "id": "T0030"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor audits and data protection related training activities",
+      "id": "T0031"
+    },
+    {
+      "type": "Task",
+      "description": "Cooperate and share information with authorities and professional groups",
+      "id": "T0032"
+    },
+    {
+      "type": "Task",
+      "description": "Contribute to the development of the organisation\u2019s cybersecurity strategy, policy and procedures",
+      "id": "T0033"
+    },
+    {
+      "type": "Task",
+      "description": "Develop and propose staff awareness training to achieve compliance and foster a culture of data protection within the organization",
+      "id": "T0034"
+    },
+    {
+      "type": "Task",
+      "description": "Manage legal aspects of information security responsibilities and third-party relations",
+      "id": "T0035"
+    },
+    {
+      "type": "Task",
+      "description": "Develop, implement and manage the organisation's cyber threat intelligence strategy",
+      "id": "T0036"
+    },
+    {
+      "type": "Task",
+      "description": "Develop plans and procedures to manage threat intelligence",
+      "id": "T0037"
+    },
+    {
+      "type": "Task",
+      "description": "Translate business requirements into Intelligence Requirements",
+      "id": "T0038"
+    },
+    {
+      "type": "Task",
+      "description": "Implement threat intelligence collection, analysis and production of actionable intelligence and dissemination to security stakeholders",
+      "id": "T0039"
+    },
+    {
+      "type": "Task",
+      "description": "Identify and assess cyber threat actors targeting the organisation",
+      "id": "T0040"
+    },
+    {
+      "type": "Task",
+      "description": "Identify, monitor and assess the Tactics, Techniques and Procedures (TTPs) used by cyber threat actors by analysing open-source and proprietary data, information and intelligence",
+      "id": "T0041"
+    },
+    {
+      "type": "Task",
+      "description": "Produce actionable reports based on threat intelligence data",
+      "id": "T0042"
+    },
+    {
+      "type": "Task",
+      "description": "Elaborate and advise on mitigation plans at the tactical, operational and strategic level",
+      "id": "T0043"
+    },
+    {
+      "type": "Task",
+      "description": "Coordinate with stakeholders to share and consume intelligence on relevant cyber threats",
+      "id": "T0044"
+    },
+    {
+      "type": "Task",
+      "description": "Leverage intelligence data to support and assist with threat modelling, recommendations for Risk Mitigation and cyber threat hunting",
+      "id": "T0045"
+    },
+    {
+      "type": "Task",
+      "description": "Articulate and communicate intelligence openly and publicly at all levels",
+      "id": "T0046"
+    },
+    {
+      "type": "Task",
+      "description": "Convey the proper security severity by explaining the risk exposure and its consequences to non-technical stakeholders",
+      "id": "T0047"
+    },
+    {
+      "type": "Task",
+      "description": "Design and propose a secure architecture to implement the organisation\u2019s strategy",
+      "id": "T0048"
+    },
+    {
+      "type": "Task",
+      "description": "Develop organisation\u2019s cybersecurity architecture to address security and privacy requirements",
+      "id": "T0049"
+    },
+    {
+      "type": "Task",
+      "description": "Produce architectural documentation and specifications",
+      "id": "T0050"
+    },
+    {
+      "type": "Task",
+      "description": "Present high-level security architecture design to stakeholders",
+      "id": "T0051"
+    },
+    {
+      "type": "Task",
+      "description": "Establish a secure environment during the development lifecycle of systems, services and products",
+      "id": "T0052"
+    },
+    {
+      "type": "Task",
+      "description": "Coordinate the development, integration and maintenance of cybersecurity components ensuring the cybersecurity specifications",
+      "id": "T0053"
+    },
+    {
+      "type": "Task",
+      "description": "Analyse and evaluate the cybersecurity of the organisation\u2019s architecture",
+      "id": "T0054"
+    },
+    {
+      "type": "Task",
+      "description": "Assure the security of the solution architectures through security reviews and certification",
+      "id": "T0055"
+    },
+    {
+      "type": "Task",
+      "description": "Collaborate with other teams and colleagues",
+      "id": "T0056"
+    },
+    {
+      "type": "Task",
+      "description": "Evaluate the impact of cybersecurity solutions on the design and performance of the organisation\u2019s architecture",
+      "id": "T0057"
+    },
+    {
+      "type": "Task",
+      "description": "Adapt the organisation\u2019s architecture to emerging threats",
+      "id": "T0058"
+    },
+    {
+      "type": "Task",
+      "description": "Assess the implemented architecture to maintain an appropriate level of security",
+      "id": "T0059"
+    },
+    {
+      "type": "Task",
+      "description": "Develop the organisation's auditing policy, procedures, standards and guidelines",
+      "id": "T0060"
+    },
+    {
+      "type": "Task",
+      "description": "Establish the methodologies and practices used for systems auditing",
+      "id": "T0061"
+    },
+    {
+      "type": "Task",
+      "description": "Establish the target environment and manage auditing activities",
+      "id": "T0062"
+    },
+    {
+      "type": "Task",
+      "description": "Define audit scope, objectives and criteria to audit against",
+      "id": "T0063"
+    },
+    {
+      "type": "Task",
+      "description": "Develop an audit plan describing the frameworks, standards, methodology, procedures and auditing tests",
+      "id": "T0064"
+    },
+    {
+      "type": "Task",
+      "description": "Review target of evaluation, security objectives and requirements based on the risk profile",
+      "id": "T0065"
+    },
+    {
+      "type": "Task",
+      "description": "Audit compliance with cybersecurity-related applicable laws and regulations",
+      "id": "T0066"
+    },
+    {
+      "type": "Task",
+      "description": "Audit conformity with cybersecurity-related applicable standards",
+      "id": "T0067"
+    },
+    {
+      "type": "Task",
+      "description": "Execute the audit plan and collect evidence and measurements",
+      "id": "T0068"
+    },
+    {
+      "type": "Task",
+      "description": "Maintain and protect the integrity of audit records",
+      "id": "T0069"
+    },
+    {
+      "type": "Task",
+      "description": "Develop and communicate conformity assessment, assurance, audit, certification and maintenance reports",
+      "id": "T0070"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor risk remediation activities",
+      "id": "T0071"
+    },
+    {
+      "type": "Task",
+      "description": "Develop, update and deliver cybersecurity and data protection curricula and educational material for training and awareness based on content, method, tools, trainees need",
+      "id": "T0072"
+    },
+    {
+      "type": "Task",
+      "description": "Organise, design and deliver cybersecurity and data protection awareness-raising activities, seminars, courses, practical training",
+      "id": "T0073"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor, evaluate and report training effectiveness",
+      "id": "T0074"
+    },
+    {
+      "type": "Task",
+      "description": "Evaluate and report trainee\u2019s performance",
+      "id": "T0075"
+    },
+    {
+      "type": "Task",
+      "description": "Finding new approaches for education, training and awareness-raising",
+      "id": "T0076"
+    },
+    {
+      "type": "Task",
+      "description": "Design, develop and deliver cybersecurity simulations, virtual labs or cyber range environments",
+      "id": "T0077"
+    },
+    {
+      "type": "Task",
+      "description": "Provide guidance on cybersecurity certification programs for individuals",
+      "id": "T0078"
+    },
+    {
+      "type": "Task",
+      "description": "Continuously maintain and enhance expertise; encourage and empower continuous enhancement of cybersecurity capacities and capabilities building",
+      "id": "T0079"
+    },
+    {
+      "type": "Task",
+      "description": "Develop, implement, maintain, upgrade, test cybersecurity products",
+      "id": "T0080"
+    },
+    {
+      "type": "Task",
+      "description": "Provide cybersecurity-related support to users and customers",
+      "id": "T0081"
+    },
+    {
+      "type": "Task",
+      "description": "Integrate cybersecurity solutions and ensure their sound operation",
+      "id": "T0082"
+    },
+    {
+      "type": "Task",
+      "description": "Securely configure systems, services and products",
+      "id": "T0083"
+    },
+    {
+      "type": "Task",
+      "description": "Maintain and upgrade the security of systems, services and products",
+      "id": "T0084"
+    },
+    {
+      "type": "Task",
+      "description": "Implement cybersecurity procedures and controls",
+      "id": "T0085"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor and assure the performance of the implemented cybersecurity controls",
+      "id": "T0086"
+    },
+    {
+      "type": "Task",
+      "description": "Document and report on the security of systems, services and products",
+      "id": "T0087"
+    },
+    {
+      "type": "Task",
+      "description": "Work close with the IT/OT personnel on cybersecurity-related actions",
+      "id": "T0088"
+    },
+    {
+      "type": "Task",
+      "description": "Implement, apply and manage patches to products to address technical vulnerabilities",
+      "id": "T0089"
+    },
+    {
+      "type": "Task",
+      "description": "Analyse and assess cybersecurity technologies, solutions, developments and processes",
+      "id": "T0090"
+    },
+    {
+      "type": "Task",
+      "description": "Conduct research, innovation and development work in cybersecurity-related topics",
+      "id": "T0091"
+    },
+    {
+      "type": "Task",
+      "description": "Manifest and generate research and innovation ideas",
+      "id": "T0092"
+    },
+    {
+      "type": "Task",
+      "description": "Advance the current state-of-the-art in cybersecurity-related topics",
+      "id": "T0093"
+    },
+    {
+      "type": "Task",
+      "description": "Assist in the development of innovative cybersecurity-related solutions",
+      "id": "T0094"
+    },
+    {
+      "type": "Task",
+      "description": "Conduct experiments and develop a proof of concept, pilots and prototypes for cybersecurity solutions",
+      "id": "T0095"
+    },
+    {
+      "type": "Task",
+      "description": "Select and apply frameworks, methods, standards, tools and protocols including a building and testing a proof of concept to support projects",
+      "id": "T0096"
+    },
+    {
+      "type": "Task",
+      "description": "Contributes towards cutting-edge cybersecurity business ideas, services and solutions",
+      "id": "T0097"
+    },
+    {
+      "type": "Task",
+      "description": "Assist in cybersecurity-related capacity building including awareness, theoretical training, practical training, testing, mentoring, supervising and sharing",
+      "id": "T0098"
+    },
+    {
+      "type": "Task",
+      "description": "Identify cross-sectoral cybersecurity achievements and apply them in a different context or propose innovative approaches and solutions",
+      "id": "T0099"
+    },
+    {
+      "type": "Task",
+      "description": "Lead or participate in the innovation processes and projects including project management and budgeting",
+      "id": "T0100"
+    },
+    {
+      "type": "Task",
+      "description": "Publish and present scientific works and research and development results",
+      "id": "T0101"
+    },
+    {
+      "type": "Task",
+      "description": "Develop an organisation\u2019s cybersecurity risk management strategy",
+      "id": "T0102"
+    },
+    {
+      "type": "Task",
+      "description": "Manage an inventory of organisation\u2019s assets",
+      "id": "T0103"
+    },
+    {
+      "type": "Task",
+      "description": "Identify and assess cybersecurity-related threats and vulnerabilities of ICT systems",
+      "id": "T0104"
+    },
+    {
+      "type": "Task",
+      "description": "Identification of threat landscape including attackers\u2019 profiles and estimation of attacks\u2019 potential",
+      "id": "T0105"
+    },
+    {
+      "type": "Task",
+      "description": "Assess cybersecurity risks and propose most appropriate risk treatment options, including security controls and risk mitigation and avoidance that best address the organisation\u2019s strategy",
+      "id": "T0106"
+    },
+    {
+      "type": "Task",
+      "description": "Monitor effectiveness of cybersecurity controls and risk levels",
+      "id": "T0107"
+    },
+    {
+      "type": "Task",
+      "description": "Ensure that all cybersecurity risks remain at an acceptable level for the organisation\u2019s assets",
+      "id": "T0108"
+    },
+    {
+      "type": "Task",
+      "description": "Develop, maintain, report and communicate complete risk management cycle",
+      "id": "T0109"
+    },
+    {
+      "type": "Task",
+      "description": "Develop digital forensics investigation policy, plans and procedures",
+      "id": "T0110"
+    },
+    {
+      "type": "Task",
+      "description": "Identify, recover, extract, document and analyse digital evidence",
+      "id": "T0111"
+    },
+    {
+      "type": "Task",
+      "description": "Preserve and protect digital evidence and make it available to authorised stakeholders",
+      "id": "T0112"
+    },
+    {
+      "type": "Task",
+      "description": "Inspect environments for evidence of unauthorised and unlawful actions",
+      "id": "T0113"
+    },
+    {
+      "type": "Task",
+      "description": "Systematically and deterministic document, report and present digital forensic analysis findings and results",
+      "id": "T0114"
+    },
+    {
+      "type": "Task",
+      "description": "Select and customise forensics testing, analysing and reporting techniques",
+      "id": "T0115"
+    },
+    {
+      "type": "Task",
+      "description": "Identify, analyse and assess technical and organisational cybersecurity vulnerabilities",
+      "id": "T0116"
+    },
+    {
+      "type": "Task",
+      "description": "Identify attack vectors, uncover and demonstrate exploitation of technical cybersecurity vulnerabilities",
+      "id": "T0117"
+    },
+    {
+      "type": "Task",
+      "description": "Test systems and operations compliance with regulatory standards",
+      "id": "T0118"
+    },
+    {
+      "type": "Task",
+      "description": "Select and develop appropriate penetration testing techniques",
+      "id": "T0119"
+    },
+    {
+      "type": "Task",
+      "description": "Organise test plans and procedures for penetration testing",
+      "id": "T0120"
+    },
+    {
+      "type": "Task",
+      "description": "Establish procedures for penetration testing result analysis and reporting",
+      "id": "T0121"
+    },
+    {
+      "type": "Task",
+      "description": "Document and report penetration testing results to stakeholders",
+      "id": "T0122"
+    },
+    {
+      "type": "Task",
+      "description": "Deploy penetration testing tools and test programs",
+      "id": "T0123"
+    }
+  ],
+  "relationship": [
+    {
+      "work_role_id": 1,
+      "tks_id": "T0001"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0002"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0003"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0004"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0005"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0006"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0007"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0008"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0009"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0010"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0011"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "T0012"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0001"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0003"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0004"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0006"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0007"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0008"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0009"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0010"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "K0011"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0001"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0002"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0003"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0004"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0005"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0006"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0007"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0008"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0009"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0010"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0011"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0012"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0013"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0014"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0015"
+    },
+    {
+      "work_role_id": 1,
+      "tks_id": "S0016"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0013"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0014"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0015"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0016"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0017"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0018"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0019"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0020"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0021"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0022"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "T0023"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0012"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0013"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0014"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0015"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0016"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0017"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0018"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0019"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0020"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0004"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0021"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "K0022"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0017"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0018"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0019"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0020"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 2,
+      "tks_id": "S0022"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0024"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0025"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0026"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0027"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0028"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0029"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0030"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0031"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0032"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0033"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0034"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "T0035"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "K0004"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "K0001"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "K0023"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "K0024"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0023"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0024"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0025"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0026"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0027"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0028"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0029"
+    },
+    {
+      "work_role_id": 3,
+      "tks_id": "S0030"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0036"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0037"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0038"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0039"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0040"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0041"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0042"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0043"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0044"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0045"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0046"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "T0047"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0016"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0017"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0026"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0027"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0028"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0029"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0018"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0030"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0019"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0031"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0032"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0030"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0018"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0031"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0032"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0033"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0034"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0035"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0012"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 4,
+      "tks_id": "S0036"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0048"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0049"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0050"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0051"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0052"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0053"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0054"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0055"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0056"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0057"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0058"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "T0059"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0003"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0033"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0034"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0035"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0036"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0037"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0018"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0038"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0023"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0039"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0040"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "K0041"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0037"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0038"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0039"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0040"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0041"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0042"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0043"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0044"
+    },
+    {
+      "work_role_id": 5,
+      "tks_id": "S0045"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0060"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0061"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0062"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0063"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0064"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0065"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0066"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0067"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0068"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0069"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0070"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "T0071"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0023"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0042"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0043"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0044"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0045"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0046"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0047"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0048"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0049"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0050"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0051"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0052"
+    },
+    {
+      "work_role_id": 6,
+      "tks_id": "S0053"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0072"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0073"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0074"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0075"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0076"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0077"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0078"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "T0079"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0046"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0047"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0048"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0004"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0003"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0054"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0055"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0056"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0057"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0058"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0059"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0060"
+    },
+    {
+      "work_role_id": 7,
+      "tks_id": "S0016"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0080"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0081"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0082"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0083"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0084"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0085"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0086"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0087"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0088"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "T0089"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0034"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0026"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0016"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0017"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0049"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0050"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0003"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0051"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0052"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "K0036"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0061"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0062"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0063"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0064"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0010"
+    },
+    {
+      "work_role_id": 8,
+      "tks_id": "S0030"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0090"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0091"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0092"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0093"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0094"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0095"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0096"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0097"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0098"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0099"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0100"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "T0101"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "K0053"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "K0002"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "K0054"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "K0055"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "K0028"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0065"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0050"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0039"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0066"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0010"
+    },
+    {
+      "work_role_id": 9,
+      "tks_id": "S0030"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0102"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0103"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0104"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0105"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0106"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0107"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0108"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "T0109"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0011"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0056"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0057"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0018"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0020"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0025"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0037"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0042"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "K0036"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0067"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0068"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0069"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0070"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 10,
+      "tks_id": "S0071"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0110"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0111"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0112"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0113"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0114"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "T0115"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0058"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0059"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0060"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0052"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0061"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0004"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0062"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0018"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0020"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0019"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0016"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0017"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "S0072"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "S0073"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "S0074"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "S0075"
+    },
+    {
+      "work_role_id": 11,
+      "tks_id": "S0076"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0116"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0117"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0118"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0119"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0120"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0121"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0122"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "T0123"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0019"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0063"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0064"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0016"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0017"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0065"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0066"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0067"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0026"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0020"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0003"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "K0005"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0077"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0078"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0079"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0080"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0081"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0010"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0021"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0082"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0033"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0050"
+    },
+    {
+      "work_role_id": 12,
+      "tks_id": "S0083"
+    }
+  ]
+}
