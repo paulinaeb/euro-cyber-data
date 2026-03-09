@@ -14,6 +14,14 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from src.utils.config import RAW_DATA_DIR
 
+# Language detection
+try:
+    from langdetect import detect, LangDetectException
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    LANGDETECT_AVAILABLE = False
+    print("⚠️  Warning: langdetect not installed. Language detection will be skipped.")
+
 
 def load_json(filepath):
     """Load JSON file"""
@@ -219,6 +227,82 @@ def explore_job_postings(filepath):
                         print(f"    - ID: {record.get('id', record.get('Id', 'N/A'))}, Status: {record[col]}")
                 else:
                     print(f"  ✅ All records have status = 'LISTED'")
+        
+        # Check critical fields (Title, Description, Primary Description)
+        critical_fields = ['Title', 'Description', 'Primary Description']
+        existing_critical = [f for f in critical_fields if f in df.columns]
+        
+        if existing_critical:
+            print("\n" + "=" * 80)
+            print("🔑 CRITICAL FIELDS CHECK")
+            print("=" * 80)
+            
+            for field in existing_critical:
+                print(f"\n📌 Field: '{field}'")
+                
+                # Count nulls and empty strings
+                null_count = df[field].isna().sum()
+                empty_count = (df[field].str.strip() == '').sum() if df[field].dtype == 'object' else 0
+                total_missing = null_count + empty_count
+                valid_count = len(df) - total_missing
+                
+                print(f"  - Valid records: {valid_count} ({(valid_count/len(df)*100):.1f}%)")
+                print(f"  - Null values: {null_count}")
+                print(f"  - Empty strings: {empty_count}")
+                print(f"  - Total missing: {total_missing} ({(total_missing/len(df)*100):.1f}%)")
+                
+                if total_missing > 0:
+                    print(f"  ⚠️  Warning: {total_missing} records missing critical field '{field}'")
+        
+        # Language Detection
+        if LANGDETECT_AVAILABLE and existing_critical:
+            print("\n" + "=" * 80)
+            print("🌐 LANGUAGE DETECTION")
+            print("=" * 80)
+            
+            for field in existing_critical:
+                print(f"\n📝 Detecting language in '{field}'...")
+                
+                # Sample detection (check first 500 non-empty records for speed)
+                sample_size = min(500, len(df))
+                non_empty = df[df[field].str.strip() != ''][field].head(sample_size)
+                
+                if len(non_empty) == 0:
+                    print(f"  ⚠️  No valid text to detect language")
+                    continue
+                
+                detected_langs = []
+                for text in non_empty:
+                    try:
+                        lang = detect(str(text))
+                        detected_langs.append(lang)
+                    except LangDetectException:
+                        detected_langs.append('unknown')
+                
+                # Count languages
+                lang_counts = Counter(detected_langs)
+                total_sampled = len(detected_langs)
+                
+                print(f"  Sampled {total_sampled} records:")
+                for lang, count in lang_counts.most_common():
+                    percentage = (count / total_sampled) * 100
+                    emoji = "✅" if lang == 'en' else "⚠️"
+                    print(f"    {emoji} {lang}: {count} ({percentage:.1f}%)")
+                
+                # Check if mostly English
+                en_count = lang_counts.get('en', 0)
+                en_percentage = (en_count / total_sampled) * 100
+                
+                if en_percentage < 90:
+                    non_en_count = total_sampled - en_count
+                    print(f"\n  ⚠️  Found {non_en_count} non-English records ({(100-en_percentage):.1f}%)")
+                else:
+                    print(f"\n  ✅ Mostly English ({en_percentage:.1f}%)")
+        elif not LANGDETECT_AVAILABLE:
+            print("\n" + "=" * 80)
+            print("🌐 LANGUAGE DETECTION - SKIPPED")
+            print("=" * 80)
+            print("  Install langdetect: pip install langdetect")
         
     elif isinstance(data, dict):
         print(f"📊 Top-level keys: {list(data.keys())}")
