@@ -46,10 +46,6 @@ def explore_ecsf(filepath):
         # Convert to DataFrame for easier analysis
         df = pd.DataFrame(data)
         
-        print(f"\n📋 Columns ({len(df.columns)}):")
-        for col in df.columns:
-            print(f"  - {col}")
-        
         print(f"\n📏 Shape: {df.shape[0]} rows × {df.shape[1]} columns")
         
         print("\n🔍 Column Data Types:")
@@ -160,32 +156,34 @@ def explore_job_postings(filepath):
         # Convert to DataFrame for easier analysis
         df = pd.DataFrame(data)
         
-        print(f"\n📋 Columns ({len(df.columns)}):")
-        for col in df.columns:
-            print(f"  - {col}")
-        
         print(f"\n📏 Shape: {df.shape[0]} rows × {df.shape[1]} columns")
         
         print("\n🔍 Column Data Types:")
         print(df.dtypes)
         
         # Check for empty string values across all columns
-        print("\n⚠️  Empty String Values (null values):")
+        print("\n⚠️  Missing Values (invalid content):")
         empty_strings_found = False
+        invalid_values = {'', ' ', 'N/A', 'None', 'none', 'n/a', 'null', 'NULL'}
         for col in df.columns:
             if df[col].dtype == 'object':  # Only check string columns
-                empty_count = (df[col].str.strip() == '').sum()
+                empty_count = (df[col].str.strip().isin(invalid_values)).sum()
                 if empty_count > 0:
                     empty_strings_found = True
                     percentage = (empty_count / len(df)) * 100
-                    print(f"  - {col}: {empty_count} empty strings ({percentage:.1f}%)")
+                    print(f"  - {col}: {empty_count} ({percentage:.3f}%)")
         
         if not empty_strings_found:
-            print("  No empty string values found")
+            print("  No missing values (invalid content) found")
         
         print("\n🔄 Duplicate Records:")
-        duplicates = df.duplicated().sum()
-        print(f"  {duplicates} duplicate rows")
+        duplicates_exact = df.duplicated().sum()
+        print(f"  - Exact duplicates (all columns): {duplicates_exact}")
+
+        comparison_columns = [col for col in df.columns if col != 'Scraped At']
+        if comparison_columns:
+            duplicates_ignore_scraped = df.duplicated(subset=comparison_columns).sum()
+            print(f"  - Duplicates ignoring 'Scraped At': {duplicates_ignore_scraped}")
         
         print("\n👁️  Sample Records (first 2):")
         for i, record in enumerate(df.head(2).to_dict('records')):
@@ -228,8 +226,8 @@ def explore_job_postings(filepath):
                 else:
                     print(f"  ✅ All records have status = 'LISTED'")
         
-        # Check critical fields (Title, Description, Primary Description)
-        critical_fields = ['Title', 'Description', 'Primary Description']
+        # Check critical fields (including Skill when present)
+        critical_fields = ['Title', 'Description', 'Primary Description', 'Skill']
         existing_critical = [f for f in critical_fields if f in df.columns]
         
         if existing_critical:
@@ -240,32 +238,83 @@ def explore_job_postings(filepath):
             for field in existing_critical:
                 print(f"\n📌 Field: '{field}'")
                 
-                # Count nulls and empty strings
+                # Count nulls and empty/invalid strings
+                invalid_values = {'', ' ', 'N/A', 'None', 'none', 'n/a', 'null', 'NULL'}
                 null_count = df[field].isna().sum()
-                empty_count = (df[field].str.strip() == '').sum() if df[field].dtype == 'object' else 0
+                empty_count = (df[field].str.strip().isin(invalid_values)).sum() if df[field].dtype == 'object' else 0
                 total_missing = null_count + empty_count
                 valid_count = len(df) - total_missing
                 
                 print(f"  - Valid records: {valid_count} ({(valid_count/len(df)*100):.1f}%)")
                 print(f"  - Null values: {null_count}")
-                print(f"  - Empty strings: {empty_count}")
+                print(f"  - Missing values (invalid content): {empty_count}")
                 print(f"  - Total missing: {total_missing} ({(total_missing/len(df)*100):.1f}%)")
                 
                 if total_missing > 0:
                     print(f"  ⚠️  Warning: {total_missing} records missing critical field '{field}'")
         
+        # Records where ALL critical fields are empty
+        all_critical_cols = [f for f in ['Title', 'Description', 'Primary Description', 'Skill'] if f in df.columns]
+        if all_critical_cols:
+            print("\n" + "=" * 80)
+            print("🚨 RECORDS WITH ALL CRITICAL FIELDS EMPTY")
+            print("=" * 80)
+            
+            invalid_values = {'', ' ', 'N/A', 'None', 'none', 'n/a', 'null', 'NULL'}
+            mask = pd.Series([True] * len(df), index=df.index)
+            for col in all_critical_cols:
+                mask = mask & (df[col].str.strip().isin(invalid_values))
+            
+            all_empty = df[mask]
+            print(f"\n  Fields checked: {all_critical_cols}")
+            print(f"  Records with ALL fields empty: {len(all_empty)} ({(len(all_empty)/len(df)*100):.2f}%)")
+            
+            if len(all_empty) > 0:
+                print("\n  Sample records:")
+                for i, (_, record) in enumerate(all_empty.head(3).iterrows()):
+                    print(f"    Record {i+1}: {dict(list(record.items())[:5])}")
+            else:
+                print("  ✅ No records have all critical fields empty")
+        
+        # Records where Skill AND Description are both invalid
+        skill_desc_cols = [f for f in ['Skill', 'Description'] if f in df.columns]
+        if len(skill_desc_cols) == 2:
+            print("\n" + "=" * 80)
+            print("⚠️  RECORDS WITH SKILL AND DESCRIPTION BOTH INVALID")
+            print("=" * 80)
+
+            invalid_values = {'', ' ', 'N/A', 'None', 'none', 'n/a', 'null', 'NULL'}
+            skill_invalid = df['Skill'].str.strip().isin(invalid_values)
+            desc_invalid = df['Description'].str.strip().isin(invalid_values)
+
+            print(f"\n  Records with BOTH Skill and Description invalid: {(skill_invalid & desc_invalid).sum()} ({((skill_invalid & desc_invalid).sum()/len(df)*100):.2f}%)")
+            print(f"  Records with only Skill invalid:                  {(skill_invalid & ~desc_invalid).sum()} ({((skill_invalid & ~desc_invalid).sum()/len(df)*100):.2f}%)")
+            print(f"  Records with only Description invalid:            {(~skill_invalid & desc_invalid).sum()} ({((~skill_invalid & desc_invalid).sum()/len(df)*100):.2f}%)")
+            print(f"  Records with NEITHER invalid (both present):      {(~skill_invalid & ~desc_invalid).sum()} ({((~skill_invalid & ~desc_invalid).sum()/len(df)*100):.2f}%)")
+
+            both_invalid_df = df[skill_invalid & desc_invalid]
+            if len(both_invalid_df) > 0:
+                print("\n  Sample records (both invalid):")
+                for i, (_, record) in enumerate(both_invalid_df.head(3).iterrows()):
+                    print(f"    Record {i+1}: {dict(list(record.items())[:5])}")
+
         # Language Detection
-        if LANGDETECT_AVAILABLE and existing_critical:
+        if LANGDETECT_AVAILABLE:
             print("\n" + "=" * 80)
             print("🌐 LANGUAGE DETECTION")
             print("=" * 80)
             
-            for field in existing_critical:
+            # Fields to check for language
+            fields_to_check = ['Title', 'Description', 'Primary Description', 'Skill']
+            existing_fields = [f for f in fields_to_check if f in df.columns]
+            
+            for field in existing_fields:
                 print(f"\n📝 Detecting language in '{field}'...")
                 
                 # Sample detection (check first 500 non-empty records for speed)
                 sample_size = min(500, len(df))
-                non_empty = df[df[field].str.strip() != ''][field].head(sample_size)
+                invalid_values = {'', ' ', 'N/A', 'None', 'none', 'n/a', 'null', 'NULL'}
+                non_empty = df[~df[field].str.strip().isin(invalid_values)][field].head(sample_size)
                 
                 if len(non_empty) == 0:
                     print(f"  ⚠️  No valid text to detect language")
