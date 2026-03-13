@@ -60,7 +60,14 @@ docker-compose ps
 ### Run Scripts Inside Container
 ```bash
 # Data exploration
+# Default (sample 500)
 docker-compose exec app python src/preprocessing/explore_data.py
+
+# Personalized sample
+docker-compose exec app python src/preprocessing/explore_data.py --language-mode sample --sample-size 1000
+
+# full - might take around 3 hours
+docker-compose exec app python src/preprocessing/explore_data.py --language-mode full
 
 # Data preprocessing
 docker-compose exec app python src/preprocessing/preprocess_data.py
