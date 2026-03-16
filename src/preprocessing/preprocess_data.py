@@ -7,6 +7,7 @@ Saves preprocessed data to data/preprocessed/
 
 import json
 import html
+import re
 import pandas as pd
 from pathlib import Path
 import argparse
@@ -62,6 +63,13 @@ JOB_POSTINGS_COLUMNS_TO_DROP = [
     'Hiring Manager Image',
     'Poster Id',
 ]
+
+SKILL_PREFIX_PATTERN = re.compile(r'^\s*skills:\s*', flags=re.IGNORECASE)
+SKILL_SUFFIX_MORE_PATTERN = re.compile(r'\s*,\s*\+\s*\d+\s+more\s*$', flags=re.IGNORECASE)
+SKILL_PROFILE_MATCH_PATTERN = re.compile(
+    r'^\s*\d+\s+of\s+\d+\s+skills\s+match\s+your\s+profile\s*-\s*you\s+may\s+be\s+a\s+good\s+fit\s*$',
+    flags=re.IGNORECASE,
+)
 
 def get_language_check(df, field='Description', mode='sample', sample_size=500):
     """Reusable language check for preprocessing decisions."""
@@ -183,6 +191,43 @@ def clean_gender_markers_in_columns(df, columns=('Title', 'Description')):
         )
 
     return cleaned_df, cleaned_counts
+
+
+def _clean_skill_value(value):
+    """Normalize Skill text by removing boilerplate wrappers and profile-match sentences."""
+    if pd.isna(value):
+        return value
+
+    text = str(value).strip()
+
+    if SKILL_PROFILE_MATCH_PATTERN.fullmatch(text):
+        return ''
+
+    text = SKILL_PREFIX_PATTERN.sub('', text)
+    text = SKILL_SUFFIX_MORE_PATTERN.sub('', text)
+    return WHITESPACE_PATTERN.sub(' ', text).strip()
+
+
+def clean_skill_feature(df, column='Skill'):
+    """Clean the Skill column and return per-rule counts."""
+    cleaned_df = df.copy()
+
+    if column not in cleaned_df.columns:
+        return cleaned_df, {
+            'prefix_removed': 0,
+            'suffix_removed': 0,
+            'profile_match_cleared': 0,
+        }
+
+    texts = cleaned_df[column].fillna('').astype(str)
+    stats = {
+        'prefix_removed': int(texts.str.contains(SKILL_PREFIX_PATTERN, regex=True).sum()),
+        'suffix_removed': int(texts.str.contains(SKILL_SUFFIX_MORE_PATTERN, regex=True).sum()),
+        'profile_match_cleared': int(texts.str.contains(SKILL_PROFILE_MATCH_PATTERN, regex=True).sum()),
+    }
+
+    cleaned_df[column] = cleaned_df[column].apply(_clean_skill_value)
+    return cleaned_df, stats
 
 
 def save_markup_cleaning_examples(before_records, after_df, detection_result, before_path, after_path, column='Description', sample_count=20):
@@ -324,7 +369,19 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
     if markup_examples_after_path is not None:
         print(f"  Saved description markup examples after cleaning: {markup_examples_after_path}")
 
-    # Step 5: remove rows where every critical field is invalid.
+    # Step 5: clean Skill feature boilerplate.
+    cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
+    if 'Skill' in cleaned_df.columns:
+        print(
+            "  Skill cleanup: "
+            f"prefix_removed={skill_clean_stats['prefix_removed']}, "
+            f"suffix_removed={skill_clean_stats['suffix_removed']}, "
+            f"profile_match_cleared={skill_clean_stats['profile_match_cleared']}"
+        )
+    else:
+        print("  Skill column not found for Skill cleanup")
+
+    # Step 6: remove rows where every critical field is invalid.
     cleaned_df, invalid_records, checked_fields = remove_records_with_all_critical_fields_invalid(cleaned_df)
 
     if checked_fields:
