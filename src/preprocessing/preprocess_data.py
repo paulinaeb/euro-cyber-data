@@ -77,6 +77,148 @@ SKILL_PROFILE_MATCH_PATTERN = re.compile(
     flags=re.IGNORECASE,
 )
 
+SECTION_HEADER_SPLIT_PATTERN = re.compile(
+    r'(?i)\b(?:'
+    r'about\s+us|who\s+are\s+we|company\s+description|job\s+description|'
+    r'responsibilities?|requirements?|qualifications?|benefits?|what\s+we\s+offer|'
+    r'our\s+mission|our\s+values|how\s+to\s+apply|application\s+process|'
+    r'to\s+apply|'
+    r'recruitment\s+process|selection\s+process|our\s+selection\s+process|'
+    r'additional\s+information|profile\s+sought|desired\s+profile'
+    r')\b\s*[:.]'
+)
+
+BULLET_MARKER_SPLIT_PATTERN = re.compile(r'\s*[\u2022\u25cf\u25aa\u25e6\u25c9]\s*')
+DASH_BULLET_PREFIX_PATTERN = re.compile(r'^\s*[-*]\s+')
+
+DESCRIPTION_BLOCK_FILTER_PATTERNS = {
+    'Equal opportunity / anti-discrimination': re.compile(
+        r'(?i)\b(?:equal\s+opportunit(?:y|ies)|non[- ]?discrimination|'
+        r'diversity\s+and\s+inclusion|all\s+qualified\s+applicants|'
+        r'regardless\s+of\s+(?:age|gender|race|ethnicity|religion|disability|sexual\s+orientation|nationality)|'
+        r'both\s+sexes|all\s+ages\s+and\s+all\s+nationalities|protected\s+veteran)\b'
+    ),
+    'GDPR/privacy/legal disclaimer': re.compile(
+        r'(?i)\b(?:gdpr|data\s+protection|privacy\s+policy|processing\s+of\s+personal\s+data|'
+        r'art\.?\s*13\b|regulation\s*\(?\s*(?:eu\s*)?2016\s*/\s*679\s*\)?|cookie(?:s)?)\b'
+    ),
+    'Application process boilerplate': re.compile(
+        r'(?i)\b(?:apply\s+now|how\s+to\s+apply|application\s+process|recruitment\s+process|'
+        r'selection\s+process|our\s+selection\s+process|submit\s+your\s+application|'
+        r'click\s+(?:on\s+)?(?:the\s+)?apply|interview\s+process|interview\s+rounds?|'
+        r'to\s+apply|please\s+submit\s+your\s+cv|please\s+send\s+(?:through\s+)?(?:an\s+updated\s+)?cv|'
+        r'send\s+your\s+cv|send\s+us\s+your\s+application|if\s+you\s+are\s+(?:suitable\s+and\s+)?interested|'
+        r'please\s+visit\s+our\s+website|visit\s+our\s+website|for\s+more\s+information\s+please\s+contact|'
+        r'please\s+contact\s+your\s+recruiting\s+partner|please\s+get\s+in\s+touch\s+with\s+the\s+person\s+responsible|'
+        r'please\s+contact\s+us\s+as\s+soon\s+as\s+possible|please\s+see\s+below\s+for\s+what\s+we\'re\s+looking\s+for|'
+        r'what\s+are\s+you\s+waiting\s+for\??\s*join\s+us|thank\s+you\s*!?)\b'
+    ),
+    'Recruiter contact block': re.compile(
+        r'(?i)\b(?:contact\s+person|your\s+contact|for\s+more\s+information(?:,)?\s+please\s+contact|'
+        r'please\s+contact|reach\s+out\s+to|recruit(?:ing|er)?\s+partner)\b.*'
+        r'(?:@|linkedin|tel(?:ephone)?|phone|\+?\d[\d\s().\-]{6,}|cv|resume)'
+    ),
+    'Company marketing paragraph': re.compile(
+        r'(?i)\b(?:about\s+us|who\s+are\s+we|our\s+mission|our\s+values|'
+        r'founded\s+in\s+\d{4}|we\s+are\s+(?:a|an|the)\s+(?:leading|global|world\s+leader)|'
+        r'with\s+over\s+\d[\d,.\s]*(?:employees|people|professionals)|great\s+place\s+to\s+work|'
+        r'join\s+our\s+team|join\s+us|make\s+an\s+impact)\b'
+    ),
+}
+
+
+def _init_block_filter_stats():
+    """Create an empty stats object for description block filtering."""
+    return {
+        'records_with_removed_blocks': 0,
+        'blocks_removed': 0,
+        'removed_by_category': {
+            category: 0
+            for category in DESCRIPTION_BLOCK_FILTER_PATTERNS
+        },
+    }
+
+
+def split_description_into_blocks(text):
+    """Split description text into blocks using line breaks, bullets, and section headers."""
+    if not text:
+        return []
+
+    normalized = text.replace('\r\n', '\n').replace('\r', '\n')
+
+    # Create new block boundaries before common section headers when they appear inline.
+    normalized = SECTION_HEADER_SPLIT_PATTERN.sub(lambda match: f"\n{match.group(0)}", normalized)
+
+    blocks = []
+    for raw_line in normalized.split('\n'):
+        line = raw_line.strip()
+        if not line:
+            continue
+
+        line = DASH_BULLET_PREFIX_PATTERN.sub('', line).strip()
+        if not line:
+            continue
+
+        bullet_parts = [part.strip() for part in BULLET_MARKER_SPLIT_PATTERN.split(line) if part.strip()]
+        if bullet_parts:
+            blocks.extend(bullet_parts)
+
+    return blocks
+
+
+def _get_block_filter_category(block):
+    """Return the first matching block-filter category, or None if block should be kept."""
+    for category, pattern in DESCRIPTION_BLOCK_FILTER_PATTERNS.items():
+        if category == 'Company marketing paragraph' and len(block) < 120:
+            continue
+
+        if pattern.search(block):
+            return category
+
+    return None
+
+
+def clean_description_blocks(df, column='Description'):
+    """Drop block-level boilerplate noise from descriptions and report category stats."""
+    cleaned_df = df.copy()
+    stats = _init_block_filter_stats()
+
+    if column not in cleaned_df.columns:
+        return cleaned_df, stats
+
+    cleaned_values = []
+    for value in cleaned_df[column]:
+        if pd.isna(value):
+            cleaned_values.append(value)
+            continue
+
+        text = str(value)
+        blocks = split_description_into_blocks(text)
+        if not blocks:
+            cleaned_values.append(text)
+            continue
+
+        kept_blocks = []
+        removed_in_record = 0
+
+        for block in blocks:
+            category = _get_block_filter_category(block)
+            if category is None:
+                kept_blocks.append(block)
+                continue
+
+            removed_in_record += 1
+            stats['blocks_removed'] += 1
+            stats['removed_by_category'][category] += 1
+
+        if removed_in_record > 0:
+            stats['records_with_removed_blocks'] += 1
+
+        cleaned_values.append('\n'.join(kept_blocks).strip())
+
+    cleaned_df[column] = cleaned_values
+    return cleaned_df, stats
+
 def get_language_check(df, field='Description', mode='sample', sample_size=500):
     """Reusable language check for preprocessing decisions."""
     if field not in df.columns:
@@ -284,10 +426,10 @@ def clean_description_markup(df, column='Description', before_examples_path=None
     while preserving the remaining readable text.
     """
     if column not in df.columns:
-        return df.copy(), df.iloc[0:0].copy(), 0
+        return df.copy(), df.iloc[0:0].copy(), 0, _init_block_filter_stats()
 
     markup_records, detection_result = find_records_with_markup(df, column=column)
-    cleaned_df = df.copy()
+    cleaned_df, block_filter_stats = clean_description_blocks(df, column=column)
     cleaned_df[column] = cleaned_df[column].apply(clean_markup_from_text)
 
     remaining_markup_records, _ = find_records_with_markup(cleaned_df, column=column)
@@ -302,7 +444,7 @@ def clean_description_markup(df, column='Description', before_examples_path=None
             column=column,
         )
 
-    return cleaned_df, markup_records, len(remaining_markup_records)
+    return cleaned_df, markup_records, len(remaining_markup_records), block_filter_stats
 
 
 def preprocess_ecsf(data):
@@ -374,11 +516,24 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
         print("  No target columns found for gender marker cleaning")
 
     # Step 4: remove markup-like content from descriptions and save "after" examples.
-    cleaned_df, markup_records_cleaned, remaining_markup_count = clean_description_markup(
+    cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,  # Already saved in Step 2
         after_examples_path=markup_examples_after_path,
     )
+    print(
+        "  Description block filtering: "
+        f"records_with_removed_blocks={description_block_stats['records_with_removed_blocks']}, "
+        f"blocks_removed={description_block_stats['blocks_removed']}"
+    )
+    removed_categories = [
+        f"{category}={count}"
+        for category, count in description_block_stats['removed_by_category'].items()
+        if count > 0
+    ]
+    if removed_categories:
+        print(f"    Removed by category: {', '.join(removed_categories)}")
+
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
     if markup_examples_after_path is not None:
         print(f"  Saved description markup examples after cleaning: {markup_examples_after_path}")
