@@ -43,7 +43,7 @@ env/
 data/raw/job_postings*.json
 data/raw/job_postings*.csv
 data/raw/*.zip
-data/processed/
+data/preprocessed/
 data/results/*.csv
 data/results/*.json
 
