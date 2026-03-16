@@ -8,11 +8,14 @@ Saves preprocessed data to data/preprocessed/
 import json
 import pandas as pd
 from pathlib import Path
+import argparse
 import sys
 
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from src.utils.config import RAW_DATA_DIR, PREPROCESSED_DATA_DIR
+from src.utils.config import RAW_DATA_DIR, PREPROCESSED_DIR
+from src.utils.cli_args import add_sample_mode_arguments, is_valid_sample_size
+from src.utils.sampling import sample_collection
 from src.preprocessing.invalid_record_detection import (
     get_all_critical_fields_invalid_mask,
 )
@@ -101,7 +104,7 @@ def preprocess_job_postings(data):
 
 def save_preprocessed_data(data, filename):
     """Save preprocessed data to JSON"""
-    output_path = PREPROCESSED_DATA_DIR / filename
+    output_path = PREPROCESSED_DIR / filename
     
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -111,7 +114,26 @@ def save_preprocessed_data(data, filename):
 
 def main():
     """Main preprocessing function"""
+    parser = argparse.ArgumentParser(description='Run job postings preprocessing in sample or full mode.')
+    add_sample_mode_arguments(
+        parser,
+        mode_flag='--run-mode',
+        mode_dest='run_mode',
+        default_mode='full',
+        mode_help="Execution mode: 'sample' for quick iteration or 'full' for complete dataset (default: full).",
+        sample_size_default=1000,
+        sample_size_help='Number of records used when --run-mode=sample (default: 1000).',
+    )
+    args = parser.parse_args()
+
+    if not is_valid_sample_size(args.sample_size):
+        print('❌ sample-size must be greater than 0')
+        return
+
     print("⚙️  Starting Data Preprocessing...\n")
+    print(f"  Run mode: {args.run_mode}")
+    if args.run_mode == 'sample':
+        print(f"  Sample size: {args.sample_size}")
     
     # Load raw data
     # ecsf_file = RAW_DATA_DIR / 'ecsf.json'
@@ -127,13 +149,22 @@ def main():
     
     with open(job_postings_file, 'r', encoding='utf-8') as f:
         job_data = json.load(f)
+
+    original_job_count = len(job_data)
+    job_data = sample_collection(job_data, mode=args.run_mode, sample_size=args.sample_size)
+    print(f"  Job postings loaded: {len(job_data)} / {original_job_count}")
     
     # ecsf_preprocessed = preprocess_ecsf(ecsf_data)
     job_preprocessed = preprocess_job_postings(job_data)
 
     # Save preprocessed data
     # save_preprocessed_data(ecsf_preprocessed, 'ecsf_preprocessed.json')
-    save_preprocessed_data(job_preprocessed, 'job_postings_preprocessed.json')
+    if args.run_mode == 'sample':
+        output_name = f"job_postings_preprocessed_sample_{len(job_data)}.json"
+    else:
+        output_name = 'job_postings_preprocessed.json'
+
+    save_preprocessed_data(job_preprocessed, output_name)
 
 
 if __name__ == '__main__':

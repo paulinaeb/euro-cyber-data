@@ -5,6 +5,7 @@ Shared utilities for language detection and invalid-text filtering.
 from collections import Counter
 
 import pandas as pd
+from src.utils.sampling import sample_collection
 
 INVALID_CONTENT_VALUES = {
     "",
@@ -66,10 +67,7 @@ def detect_language_distribution(series, mode="sample", sample_size=500, invalid
     if mode not in {"sample", "full"}:
         raise ValueError("mode must be 'sample' or 'full'")
 
-    if mode == "full":
-        texts = valid_texts
-    else:
-        texts = valid_texts.head(min(sample_size, len(valid_texts)))
+    texts = sample_collection(valid_texts, mode=mode, sample_size=sample_size)
 
     detected = []
     for text in texts:

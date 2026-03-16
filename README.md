@@ -60,17 +60,26 @@ docker-compose ps
 ### Run Scripts Inside Container
 ```bash
 # Data exploration
-# Default (sample 500)
+# Default (full dataset, default sample for language detection 1000)
 docker-compose exec app python src/preprocessing/explore_data.py
 
-# Personalized sample
-docker-compose exec app python src/preprocessing/explore_data.py --language-mode sample --sample-size 1000
+# Dataset with personalized sample
+docker-compose exec app python src/preprocessing/explore_data.py --run-mode sample --sample-size 500
 
-# full - might take around 3 hours
+# Optional: customize language detection sampling independently
+docker-compose exec app python src/preprocessing/explore_data.py --run-mode sample --sample-size 1000 --language-mode sample --language-sample-size 1000
+
+# Skip language detection entirely
+docker-compose exec app python src/preprocessing/explore_data.py --run-mode sample --sample-size 1000 --language-sample-size 0
+
+# full exploration - might take around 3 hours
 docker-compose exec app python src/preprocessing/explore_data.py --language-mode full
 
-# Data preprocessing
-docker-compose exec app python src/preprocessing/preprocess_data.py
+# Data preprocessing (full dataset)
+docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode full
+
+# Data preprocessing (quick sample)
+docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode sample --sample-size 500
 
 # Minimal webapp
 docker-compose exec app python webapp/app.py

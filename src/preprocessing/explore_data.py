@@ -13,6 +13,8 @@ import sys
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from src.utils.config import RAW_DATA_DIR
+from src.utils.cli_args import add_sample_mode_arguments, is_valid_sample_size
+from src.utils.sampling import sample_collection
 from src.preprocessing.invalid_record_detection import (
     find_all_critical_fields_invalid_records,
 )
@@ -142,7 +144,13 @@ def explore_ecsf(filepath):
     return data
 
 
-def explore_job_postings(filepath, language_mode='sample', language_sample_size=500):
+def explore_job_postings(
+    filepath,
+    run_mode='full',
+    run_sample_size=1000,
+    language_mode='sample',
+    language_sample_size=1000,
+):
     """Explore Job Postings data structure"""
     print("\n\n" + "=" * 80)
     print("JOB POSTINGS DATA EXPLORATION")
@@ -154,7 +162,13 @@ def explore_job_postings(filepath, language_mode='sample', language_sample_size=
     print(f"\n📊 Data type: {type(data).__name__}")
     
     if isinstance(data, list):
-        print(f"📊 Total records: {len(data)}")
+        original_total = len(data)
+        data = sample_collection(data, mode=run_mode, sample_size=run_sample_size)
+
+        if run_mode == 'sample':
+            print(f"📊 Records loaded for analysis: {len(data)} / {original_total}")
+        else:
+            print(f"📊 Total records: {len(data)}")
         
         # Convert to DataFrame for easier analysis
         df = pd.DataFrame(data)
@@ -293,7 +307,12 @@ def explore_job_postings(filepath, language_mode='sample', language_sample_size=
                     print(f"    Record {i+1}: {dict(list(record.items())[:5])}")
 
         # Language Detection
-        if LANGDETECT_AVAILABLE:
+        if language_sample_size == 0:
+            print("\n" + "=" * 80)
+            print("🌐 LANGUAGE DETECTION - SKIPPED")
+            print("=" * 80)
+            print("  Skipped because --language-sample-size is set to 0")
+        elif LANGDETECT_AVAILABLE:
             print("\n" + "=" * 80)
             print("🌐 LANGUAGE DETECTION")
             print("=" * 80)
@@ -355,25 +374,55 @@ def explore_job_postings(filepath, language_mode='sample', language_sample_size=
 def main():
     """Main exploration function"""
     parser = argparse.ArgumentParser(description='Explore ECSF and job posting raw data.')
+
+    # Dataset-level sampling (shared behavior with preprocess_data.py)
+    add_sample_mode_arguments(
+        parser,
+        mode_flag='--run-mode',
+        mode_dest='run_mode',
+        default_mode='full',
+        mode_help="Execution mode for dataset analysis: 'sample' or 'full' (default: full).",
+        sample_size_default=1000,
+        sample_size_help='Number of job-posting records used when --run-mode=sample (default: 1000).',
+    )
+
+    # Language-detection sampling can be configured separately.
     parser.add_argument(
         '--language-mode',
         choices=['sample', 'full'],
         default='sample',
-        help="Language detection mode: 'sample' (default) or 'full'."
+        help="Language detection mode: 'sample' (default) or 'full'.",
     )
     parser.add_argument(
-        '--sample-size',
+        '--language-sample-size',
         type=int,
-        default=500,
-        help='Sample size per field when --language-mode=sample (default: 500).'
+        default=None,
+        help='Sample size per field for language detection. Use 0 to skip language detection. Defaults to --sample-size if not provided.',
     )
     args = parser.parse_args()
 
-    if args.sample_size <= 0:
+    if not is_valid_sample_size(args.sample_size):
         print('❌ sample-size must be greater than 0')
         return
 
+    language_sample_size = args.language_sample_size
+    if language_sample_size is None:
+        language_sample_size = args.sample_size
+
+    if language_sample_size < 0:
+        print('❌ language-sample-size must be 0 or greater')
+        return
+
     print("\n🔍 Starting Data Exploration...\n")
+    print(f"  Run mode: {args.run_mode}")
+    if args.run_mode == 'sample':
+        print(f"  Dataset sample size: {args.sample_size}")
+    if language_sample_size == 0:
+        print("  Language detection: disabled (--language-sample-size 0)")
+    else:
+        print(f"  Language mode: {args.language_mode}")
+    if args.language_mode == 'sample' and language_sample_size > 0:
+        print(f"  Language sample size per field: {language_sample_size}")
     
     # File paths
     ecsf_file = RAW_DATA_DIR / 'ecsf.json'
@@ -393,8 +442,10 @@ def main():
         ecsf_data = explore_ecsf(ecsf_file)
         job_data = explore_job_postings(
             job_postings_file,
+            run_mode=args.run_mode,
+            run_sample_size=args.sample_size,
             language_mode=args.language_mode,
-            language_sample_size=args.sample_size,
+            language_sample_size=language_sample_size,
         )
         
         print("\n\n" + "=" * 80)
