@@ -37,8 +37,9 @@ EXTRA_BLANK_LINES_PATTERN = re.compile(r'\n{3,}')
 COLLAPSE_NEWLINES_PATTERN = re.compile(r'\n+')
 NEWLINE_TO_PERIOD_PATTERN = re.compile(r'(?<![.!?,:;])\n')
 # Matches lines consisting entirely of repeated decorator characters (e.g. ----, ***, ###, ~~~, /////, ______)
+# Includes Unicode dash separators like U+2014, U+2015, and U+2E3B.
 DECORATIVE_SEPARATOR_PATTERN = re.compile(
-    r'(?m)^[ \t]*(?:-{3,}|\*{3,}|#{3,}|~{3,}|/{3,}|_{3,})[ \t]*$'
+    r'(?m)^[ \t]*(?:-{3,}|\*{3,}|#{3,}|~{3,}|/{3,}|_{3,}|[\u2014\u2015\u2e3b]{1,})[ \t]*$'
 )
 
 

@@ -76,6 +76,18 @@ SKILL_PROFILE_MATCH_PATTERN = re.compile(
     r'^\s*\d+\s+of\s+\d+\s+skills\s+match\s+your\s+profile\s*-\s*you\s+may\s+be\s+a\s+good\s+fit\s*$',
     flags=re.IGNORECASE,
 )
+CTA_SENTENCE_PATTERN = re.compile(
+    r'(?i)(^|[.!?\n])\s*[^.!?\n]*\b(?:'
+    r'why\s+join\s+us\??|'
+    r'why\s+you\s+(?:should|sould)\s+join\s+us\??|'
+    r'(?:apply|appy)\s+and\s+join\s+us|'
+    r'so\s+join\s+us|'
+    r'join\s+us|'
+    r'want\s+to\s+join\s+us\??|'
+    r'contact\s+us(?:\s+at)?|'
+    r'apply\s+now|apply\s+today|apply\s+here'
+    r')(?=\s|$|[.!?\-]|[A-Z])[^.!?\n]*[.!?\n]'
+)
 
 SECTION_HEADER_SPLIT_PATTERN = re.compile(
     r'(?i)\b(?:'
@@ -92,6 +104,9 @@ BULLET_MARKER_SPLIT_PATTERN = re.compile(r'\s*[\u2022\u25cf\u25aa\u25e6\u25c9]\s
 DASH_BULLET_PREFIX_PATTERN = re.compile(r'^\s*[-*]\s+')
 
 DESCRIPTION_BLOCK_FILTER_PATTERNS = {
+    'Company intro heading': re.compile(
+        r'(?i)^\s*(?:who\s+are\s+we\??|about\s+us|company\s+description)\s*[:.!?]*\s*$'
+    ),
     'Equal opportunity / anti-discrimination': re.compile(
         r'(?i)\b(?:equal\s+opportunit(?:y|ies)|non[- ]?discrimination|'
         r'diversity\s+and\s+inclusion|all\s+qualified\s+applicants|'
@@ -110,6 +125,7 @@ DESCRIPTION_BLOCK_FILTER_PATTERNS = {
         r'send\s+your\s+cv|send\s+us\s+your\s+application|if\s+you\s+are\s+(?:suitable\s+and\s+)?interested|'
         r'please\s+visit\s+our\s+website|visit\s+our\s+website|for\s+more\s+information\s+please\s+contact|'
         r'please\s+contact\s+your\s+recruiting\s+partner|please\s+get\s+in\s+touch\s+with\s+the\s+person\s+responsible|'
+        r'if\s+this\s+is\s+an\s+interest\s+please\s+reach\s+out\s+to\s+me\s+on\s+the\s+below\s+details|'
         r'please\s+contact\s+us\s+as\s+soon\s+as\s+possible|please\s+see\s+below\s+for\s+what\s+we\'re\s+looking\s+for|'
         r'what\s+are\s+you\s+waiting\s+for\??\s*join\s+us|thank\s+you\s*!?)\b'
     ),
@@ -317,6 +333,7 @@ def clean_markup_from_text(value):
     text = QUOTE_CHARACTER_PATTERN.sub('', text)
     text = DECORATIVE_SEPARATOR_PATTERN.sub('', text)
     text = remove_emoji_like_unicode(text)
+    text = CTA_SENTENCE_PATTERN.sub(r'\1', text)
     text = WHITESPACE_PATTERN.sub(' ', text)
     text = NEWLINE_SPACING_PATTERN.sub('\n', text)
     text = COLLAPSE_NEWLINES_PATTERN.sub('\n', text)
@@ -519,7 +536,7 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,  # Already saved in Step 2
-        after_examples_path=markup_examples_after_path,
+        after_examples_path=None,
     )
     print(
         "  Description block filtering: "
@@ -559,6 +576,21 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
         print(f"  Remaining records: {len(cleaned_df)}")
     else:
         print("  No critical fields found for invalid-record detection")
+
+    # Save "after" examples from the final dataframe that is persisted as official output.
+    if markup_examples_after_path is not None and len(markup_records) > 0:
+        save_markup_cleaning_examples(
+            markup_records,
+            cleaned_df,
+            detection_result,
+            before_path=None,
+            after_path=markup_examples_after_path,
+            column='Description',
+        )
+        print(
+            "  Re-saved description markup examples after full preprocessing "
+            f"from final output dataframe: {markup_examples_after_path}"
+        )
 
     print_sample_record(cleaned_df, 'Sample record at end:')
 
