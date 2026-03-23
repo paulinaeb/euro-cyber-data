@@ -68,6 +68,7 @@ JOB_POSTINGS_COLUMNS_TO_DROP = [
     'Hiring Manager Profile',
     'Hiring Manager Image',
     'Poster Id',
+    'Industry',
 ]
 
 LOCATION_TO_COUNTRY_OVERRIDES = {
@@ -699,7 +700,7 @@ def preprocess_job_postings(data):
         print("  Skill column not found for Skill cleanup")
 
     # Step 7: normalize invalid content values to missing markers.
-    missing_columns = ['Description', 'Primary Description', 'Location', 'Skill', 'Industry']
+    missing_columns = ['Description', 'Primary Description', 'Location', 'Skill']
     cleaned_df, missing_counts = normalize_invalid_to_missing(cleaned_df, missing_columns)
     if missing_counts:
         formatted_counts = ', '.join(
