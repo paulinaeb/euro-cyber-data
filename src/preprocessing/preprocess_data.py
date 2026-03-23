@@ -477,7 +477,7 @@ def preprocess_ecsf(data):
     pass
 
 
-def preprocess_job_postings(data, markup_examples_before_path=None, markup_examples_after_path=None):
+def preprocess_job_postings(data):
     """
     Preprocess Job Postings data
     - Clean text fields
@@ -502,27 +502,8 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
     else:
         print("  No configured columns found to drop")
 
-    # Step 2: detect and save "before" examples from original state (before any cleaning).
+    # Step 2: detect markup records for reporting only (no before/after exports).
     markup_records, detection_result = find_records_with_markup(cleaned_df, column='Description')
-    
-    if markup_examples_before_path is not None and len(markup_records) > 0:
-        # Save the original, unmodified records as "before" examples for validation
-        sample_before = markup_records.head(20)
-        before_export = []
-        
-        for index, record in sample_before.iterrows():
-            detected_types = get_detected_markup_types(index, detection_result)
-            before_export.append({
-                'Title': record.get('Title'),
-                'Location': record.get('Location'),
-                'Primary Description': record.get('Primary Description'),
-                'Description': record.get('Description'),
-                'Detected Markup Types': detected_types,
-            })
-        
-        with open(markup_examples_before_path, 'w', encoding='utf-8') as f:
-            json.dump(before_export, f, ensure_ascii=False, indent=2)
-        print(f"  Saved description markup examples before cleaning: {markup_examples_before_path}")
 
     # Step 3: remove gender marker variants from title/description text.
     cleaned_df, gender_marker_counts = clean_gender_markers_in_columns(cleaned_df)
@@ -535,7 +516,7 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
     # Step 4: remove markup-like content from descriptions and save "after" examples.
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
-        before_examples_path=None,  # Already saved in Step 2
+        before_examples_path=None,
         after_examples_path=None,
     )
     print(
@@ -552,9 +533,6 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
         print(f"    Removed by category: {', '.join(removed_categories)}")
 
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
-    if markup_examples_after_path is not None:
-        print(f"  Saved description markup examples after cleaning: {markup_examples_after_path}")
-
     # Step 5: clean Skill feature boilerplate.
     cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
     if 'Skill' in cleaned_df.columns:
@@ -576,21 +554,6 @@ def preprocess_job_postings(data, markup_examples_before_path=None, markup_examp
         print(f"  Remaining records: {len(cleaned_df)}")
     else:
         print("  No critical fields found for invalid-record detection")
-
-    # Save "after" examples from the final dataframe that is persisted as official output.
-    if markup_examples_after_path is not None and len(markup_records) > 0:
-        save_markup_cleaning_examples(
-            markup_records,
-            cleaned_df,
-            detection_result,
-            before_path=None,
-            after_path=markup_examples_after_path,
-            column='Description',
-        )
-        print(
-            "  Re-saved description markup examples after full preprocessing "
-            f"from final output dataframe: {markup_examples_after_path}"
-        )
 
     print_sample_record(cleaned_df, 'Sample record at end:')
 
@@ -650,18 +613,7 @@ def main():
     print(f"  Job postings loaded: {len(job_data)} / {original_job_count}")
     
     # ecsf_preprocessed = preprocess_ecsf(ecsf_data)
-    if args.run_mode == 'sample':
-        markup_examples_before_path = PREPROCESSED_DIR / f'job_postings_description_markup_before_sample_{len(job_data)}.json'
-        markup_examples_after_path = PREPROCESSED_DIR / f'job_postings_description_markup_after_sample_{len(job_data)}.json'
-    else:
-        markup_examples_before_path = PREPROCESSED_DIR / 'job_postings_description_markup_before_full.json'
-        markup_examples_after_path = PREPROCESSED_DIR / 'job_postings_description_markup_after_full.json'
-
-    job_preprocessed = preprocess_job_postings(
-        job_data,
-        markup_examples_before_path=markup_examples_before_path,
-        markup_examples_after_path=markup_examples_after_path,
-    )
+    job_preprocessed = preprocess_job_postings(job_data)
 
     # Save preprocessed data
     # save_preprocessed_data(ecsf_preprocessed, 'ecsf_preprocessed.json')
