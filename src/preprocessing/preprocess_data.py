@@ -46,7 +46,7 @@ from src.utils.sampling import sample_collection
 from src.preprocessing.invalid_record_detection import (
     get_all_critical_fields_invalid_mask,
 )
-from src.preprocessing.language_detection import detect_language_distribution
+from src.preprocessing.language_detection import detect_language_distribution, invalid_content_mask
 
 
 JOB_POSTINGS_COLUMNS_TO_DROP = [
@@ -69,6 +69,105 @@ JOB_POSTINGS_COLUMNS_TO_DROP = [
     'Hiring Manager Image',
     'Poster Id',
 ]
+
+LOCATION_TO_COUNTRY_OVERRIDES = {
+    "Lisbon Metropolitan Area": "Portugal",
+    "Greater Barcelona Metropolitan Area": "Spain",
+    "Greater Zaragoza Metropolitan Area": "Spain",
+    "Greater Hradec Kralove Area": "Czechia",
+    "Copenhagen Metropolitan Area": "Denmark",
+    "Greater Paris Metropolitan Region": "France",
+    "Cologne Bonn Region": "Germany",
+    "England Metropolitan Area": "United Kingdom",
+    "Brno Metropolitan Area": "Czechia",
+    "Plzen Metropolitan Area": "Czechia",
+    "Prague Metropolitan Area": "Czechia",
+    "Sofia Metropolitan Area": "Bulgaria",
+    "Plovdiv Metropolitan Area": "Bulgaria",
+    "Athens Metropolitan Area": "Greece",
+    "Thessaloniki Metropolitan Area": "Greece",
+    "Geneva Metropolitan Area": "Switzerland",
+    "Basel Metropolitan Area": "Switzerland",
+    "Zürich Metropolitan Area": "Switzerland",
+    "Lugano Metropolitan Area": "Switzerland",
+    "Lausanne Metropolitan Area": "Switzerland",
+    "Lucerne Metropolitan Area": "Switzerland",
+    "Sankt Gallen Metropolitan Area": "Switzerland",
+    "Greater Turin Metropolitan Area": "Italy",
+    "Italy Metropolitan Area": "Italy",
+    "Greater Pavia Metropolitan Area": "Italy",
+    "Greater Parma Metropolitan Area": "Italy",
+    "Greater Naples Metropolitan Area": "Italy",
+    "Greater Bergamo Metropolitan Area": "Italy",
+    "Greater Brescia Metropolitan Area": "Italy",
+    "Greater Verona Metropolitan Area": "Italy",
+    "Greater Rennes Metropolitan Area": "France",
+    "Greater Grenoble Metropolitan Area": "France",
+    "Greater Bordeaux Metropolitan Area": "France",
+    "Greater Montpellier Metropolitan Area": "France",
+    "Greater Strasbourg Metropolitan Area": "France",
+    "Greater Toulouse Metropolitan Area": "France",
+    "Greater Nantes Metropolitan Area": "France",
+    "Greater Malmö Metropolitan Area": "Sweden",
+    "Greater Gothenburg Metropolitan Area": "Sweden",
+    "Greater Helsingborg Metropolitan Area": "Sweden",
+    "Greater Västerås Metropolitan Area": "Sweden",
+    "Tarnow Metropolitan Area": "Poland",
+    "Cracow Metropolitan Area": "Poland",
+    "Kielce Metropolitan Area": "Poland",
+    "Katowice Metropolitan Area": "Poland",
+    "Lodz Metropolitan Area": "Poland",
+    "Poznan Metropolitan Area": "Poland",
+    "Zamosc Metropolitan Area": "Poland",
+    "Greater Palma de Mallorca Metropolitan Area": "Spain",
+    "Greater Bilbao Metropolitan Area": "Spain",
+    "Greater Vigo Metropolitan Area": "Spain",
+    "Greater Granada Metropolitan Area": "Spain",
+    "Greater Valencia Metropolitan Area": "Spain",
+    "Galway Metropolitan Area": "Ireland",
+    "Kortrijk Metropolitan Area": "Belgium",
+    "Antwerp Metropolitan Area": "Belgium",
+    "Ghent Metropolitan Area": "Belgium",
+    "Charleroi Metropolitan Area": "Belgium",
+    "Greater Nuremberg Metropolitan Area": "Germany",
+    "Pecs Metropolitan Area": "Hungary",
+    "Ljubljana Metropolitan Area": "Slovenia",
+    "Hannover-Braunschweig-Göttingen-Wolfsburg Region": "Germany",
+    "Brabantine City Row": "Netherlands",
+    "Greater Dusseldorf Area": "Germany",
+    "Greater Mulhouse Area": "France",
+    "Linz-Wels-Steyr Area": "Austria",
+    "Greater Alicante Area": "Spain",
+    "Greater Funchal Area": "Portugal",
+    "Greater Ipswich Area": "United Kingdom",
+    "Greater La Coruña Area": "Spain",
+    "Eindhoven Area": "Netherlands",
+    "Greater Liverpool Area": "United Kingdom",
+    "Greater Kecskemet Area": "Hungary",
+    "Greater Leipzig Area": "Germany",
+    "Utrecht Area": "Netherlands",
+    "Greater Kiel Area": "Germany",
+    "Greater Lyon Area": "France",
+    "Greater Bielefeld Area": "Germany",
+    "Greater Avignon Area": "France",
+    "Greater Bern Area": "Switzerland",
+    "Greater Hamburg Area": "Germany",
+    "Greater Leeds Area": "United Kingdom",
+    "Greater Metz Area": "France",
+    "Greater Trencin Area": "Slovakia",
+    "Osnabrück Land": "Germany",
+    "Greater Salzburg": "Austria",
+    "Greater Sankt Polten": "Austria",
+    "Greater Graz": "Austria",
+    "Greater Dublin": "Ireland",
+    "Greater Nottingham": "United Kingdom",
+    "Greater Munich Metropolitan Area": "Germany",
+}
+
+NON_COUNTRY_LOCATION_PATTERN = re.compile(
+    r'EMEA|European Union|European Economic Area',
+    flags=re.IGNORECASE,
+)
 
 SKILL_PREFIX_PATTERN = re.compile(r'^\s*skills:\s*', flags=re.IGNORECASE)
 SKILL_SUFFIX_MORE_PATTERN = re.compile(r'\s*,\s*\+\s*\d+\s+more\s*$', flags=re.IGNORECASE)
@@ -289,7 +388,7 @@ def drop_unneeded_job_posting_columns(df):
     return cleaned_df, existing_columns_to_drop
 
 
-def print_sample_record(df, label, max_fields=8, max_text_length=120):
+def print_sample_record(df, label, max_fields=9, max_text_length=120):
     """Print a compact sample record to show how the data looks at a given step."""
     print(f"\n  {label}")
 
@@ -364,6 +463,31 @@ def clean_gender_markers_in_columns(df, columns=('Title', 'Description')):
     return cleaned_df, cleaned_counts
 
 
+def add_country_from_location(df, source_column='Location', target_column='Country'):
+    """Add a country column extracted from the location text."""
+    cleaned_df = df.copy()
+
+    if source_column not in cleaned_df.columns:
+        cleaned_df[target_column] = pd.NA
+        return cleaned_df
+
+    cleaned_df[source_column] = cleaned_df[source_column].replace(LOCATION_TO_COUNTRY_OVERRIDES)
+    def _extract_country(value):
+        if not isinstance(value, str):
+            return pd.NA
+
+        if NON_COUNTRY_LOCATION_PATTERN.search(value):
+            return pd.NA
+
+        if ',' in value:
+            return value.split(',')[-1].strip()
+
+        return value.strip()
+
+    cleaned_df[target_column] = cleaned_df[source_column].apply(_extract_country)
+    return cleaned_df
+
+
 def _clean_skill_value(value):
     """Normalize Skill text by removing boilerplate wrappers and profile-match sentences."""
     if pd.isna(value):
@@ -399,6 +523,26 @@ def clean_skill_feature(df, column='Skill'):
 
     cleaned_df[column] = cleaned_df[column].apply(_clean_skill_value)
     return cleaned_df, stats
+
+
+def normalize_invalid_to_missing(df, columns):
+    """Replace invalid text values with missing markers and return counts per column."""
+    cleaned_df = df.copy()
+    counts = {}
+
+    for column in columns:
+        if column not in cleaned_df.columns:
+            continue
+
+        invalid_mask = invalid_content_mask(cleaned_df[column])
+        counts[column] = int(invalid_mask.sum())
+
+        if counts[column] == 0:
+            continue
+
+        cleaned_df.loc[invalid_mask, column] = pd.NA
+
+    return cleaned_df, counts
 
 
 def save_markup_cleaning_examples(before_records, after_df, detection_result, before_path, after_path, column='Description', sample_count=20):
@@ -513,7 +657,16 @@ def preprocess_job_postings(data):
     else:
         print("  No target columns found for gender marker cleaning")
 
-    # Step 4: remove markup-like content from descriptions and save "after" examples.
+    # Step 4: derive country from location (keep rows even if country is missing).
+    cleaned_df = add_country_from_location(cleaned_df)
+    if 'Location' in cleaned_df.columns and 'Country' in cleaned_df.columns:
+        columns = list(cleaned_df.columns)
+        location_index = columns.index('Location')
+        columns.remove('Country')
+        columns.insert(location_index + 1, 'Country')
+        cleaned_df = cleaned_df[columns]
+
+    # Step 5: remove markup-like content from descriptions and save "after" examples.
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,
@@ -533,7 +686,7 @@ def preprocess_job_postings(data):
         print(f"    Removed by category: {', '.join(removed_categories)}")
 
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
-    # Step 5: clean Skill feature boilerplate.
+    # Step 6: clean Skill feature boilerplate.
     cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
     if 'Skill' in cleaned_df.columns:
         print(
@@ -545,7 +698,18 @@ def preprocess_job_postings(data):
     else:
         print("  Skill column not found for Skill cleanup")
 
-    # Step 6: remove rows where every critical field is invalid.
+    # Step 7: normalize invalid content values to missing markers.
+    missing_columns = ['Description', 'Primary Description', 'Location', 'Skill', 'Industry']
+    cleaned_df, missing_counts = normalize_invalid_to_missing(cleaned_df, missing_columns)
+    if missing_counts:
+        formatted_counts = ', '.join(
+            f"{column}={count}" for column, count in missing_counts.items()
+        )
+        print(f"  Missing value replacements (invalid content): {formatted_counts}")
+    else:
+        print("  No target columns found for missing value normalization")
+
+    # Step 8: remove rows where every critical field is invalid.
     cleaned_df, invalid_records, checked_fields = remove_records_with_all_critical_fields_invalid(cleaned_df)
 
     if checked_fields:
