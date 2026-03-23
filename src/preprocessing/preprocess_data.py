@@ -489,6 +489,54 @@ def add_country_from_location(df, source_column='Location', target_column='Count
     return cleaned_df
 
 
+def add_work_modality_from_primary_description(
+    df,
+    source_column='Primary Description',
+    target_column='Work Modality',
+):
+    """Extract work modality (remote/hybrid/on-site) from the last parenthetical in Primary Description."""
+    cleaned_df = df.copy()
+
+    if source_column not in cleaned_df.columns:
+        cleaned_df[target_column] = pd.NA
+        return cleaned_df, 0, len(cleaned_df)
+
+    pattern = re.compile(r'\(([^)]*)\)\s*$')
+    filled_count = 0
+    missing_count = 0
+    values = []
+
+    for value in cleaned_df[source_column]:
+        if not isinstance(value, str):
+            values.append(pd.NA)
+            missing_count += 1
+            continue
+
+        match = pattern.search(value.strip())
+        if not match:
+            values.append(pd.NA)
+            missing_count += 1
+            continue
+
+        content = match.group(1).strip().lower()
+
+        if 'remote' in content:
+            values.append('remote')
+            filled_count += 1
+        elif 'hybrid' in content:
+            values.append('hybrid')
+            filled_count += 1
+        elif 'on-site' in content or 'on site' in content or 'onsite' in content:
+            values.append('on-site')
+            filled_count += 1
+        else:
+            values.append(pd.NA)
+            missing_count += 1
+
+    cleaned_df[target_column] = values
+    return cleaned_df, filled_count, missing_count
+
+
 def _clean_skill_value(value):
     """Normalize Skill text by removing boilerplate wrappers and profile-match sentences."""
     if pd.isna(value):
@@ -667,7 +715,21 @@ def preprocess_job_postings(data):
         columns.insert(location_index + 1, 'Country')
         cleaned_df = cleaned_df[columns]
 
-    # Step 5: remove markup-like content from descriptions and save "after" examples.
+    # Step 5: derive work modality from primary description.
+    cleaned_df, modality_filled, modality_missing = add_work_modality_from_primary_description(cleaned_df)
+    if 'Primary Description' in cleaned_df.columns and 'Work Modality' in cleaned_df.columns:
+        columns = list(cleaned_df.columns)
+        primary_index = columns.index('Primary Description')
+        columns.remove('Work Modality')
+        columns.insert(primary_index + 1, 'Work Modality')
+        cleaned_df = cleaned_df[columns]
+
+    print(
+        "  Work modality extraction: "
+        f"filled={modality_filled}, missing={modality_missing}"
+    )
+
+    # Step 6: remove markup-like content from descriptions and save "after" examples.
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,
@@ -687,7 +749,7 @@ def preprocess_job_postings(data):
         print(f"    Removed by category: {', '.join(removed_categories)}")
 
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
-    # Step 6: clean Skill feature boilerplate.
+    # Step 7: clean Skill feature boilerplate.
     cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
     if 'Skill' in cleaned_df.columns:
         print(
@@ -699,7 +761,7 @@ def preprocess_job_postings(data):
     else:
         print("  Skill column not found for Skill cleanup")
 
-    # Step 7: normalize invalid content values to missing markers.
+    # Step 8: normalize invalid content values to missing markers.
     missing_columns = ['Description', 'Primary Description', 'Location', 'Skill']
     cleaned_df, missing_counts = normalize_invalid_to_missing(cleaned_df, missing_columns)
     if missing_counts:
@@ -710,7 +772,7 @@ def preprocess_job_postings(data):
     else:
         print("  No target columns found for missing value normalization")
 
-    # Step 8: remove rows where every critical field is invalid.
+    # Step 9: remove rows where every critical field is invalid.
     cleaned_df, invalid_records, checked_fields = remove_records_with_all_critical_fields_invalid(cleaned_df)
 
     if checked_fields:
