@@ -1,6 +1,7 @@
 """Database utilities"""
 
 import psycopg2
+from psycopg2 import sql
 from psycopg2.extras import RealDictCursor, execute_batch
 from contextlib import contextmanager
 import logging
@@ -70,3 +71,22 @@ class Database:
 
 # Global database instance
 db = Database()
+
+
+def ensure_database_exists():
+    """Ensure the configured database exists, creating it if needed."""
+    target_db = DB_CONFIG["database"]
+    admin_config = DB_CONFIG.copy()
+    admin_config["database"] = "postgres"
+
+    conn = psycopg2.connect(**admin_config)
+    conn.autocommit = True
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT 1 FROM pg_database WHERE datname = %s", (target_db,))
+            if cursor.fetchone():
+                return False
+            cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(target_db)))
+            return True
+    finally:
+        conn.close()
