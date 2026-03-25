@@ -406,7 +406,7 @@ def drop_unneeded_job_posting_columns(df):
     return cleaned_df, existing_columns_to_drop
 
 
-def print_sample_record(df, label, max_fields=9, max_text_length=120):
+def print_sample_record(df, label, max_fields=10, max_text_length=120):
     """Print a compact sample record to show how the data looks at a given step."""
     print(f"\n  {label}")
 
@@ -552,6 +552,37 @@ def add_work_modality_from_primary_description(
 
     cleaned_df[target_column] = values
     return cleaned_df, filled_count, missing_count
+
+
+def add_company_from_primary_description(
+    df,
+    source_column='Primary Description',
+    target_column='Company',
+    delimiter='·',
+):
+    """Extract company name from Primary Description up to the first delimiter."""
+    cleaned_df = df.copy()
+
+    if source_column not in cleaned_df.columns:
+        cleaned_df[target_column] = pd.NA
+        return cleaned_df
+
+    values = []
+    for value in cleaned_df[source_column]:
+        if not isinstance(value, str):
+            values.append(pd.NA)
+            continue
+
+        parts = value.split(delimiter, 1)
+        if len(parts) < 2:
+            values.append(pd.NA)
+            continue
+
+        company = parts[0].strip()
+        values.append(company if company else pd.NA)
+
+    cleaned_df[target_column] = values
+    return cleaned_df
 
 
 def _clean_skill_value(value):
@@ -712,10 +743,21 @@ def preprocess_job_postings(data):
     else:
         print("  No configured columns found to drop")
 
-    # Step 2: detect markup records for reporting only (no before/after exports).
+    # Step 2: normalize invalid content values to missing markers.
+    missing_columns = ['Description', 'Primary Description', 'Location', 'Skill']
+    cleaned_df, missing_counts = normalize_invalid_to_missing(cleaned_df, missing_columns)
+    if missing_counts:
+        formatted_counts = ', '.join(
+            f"{column}={count}" for column, count in missing_counts.items()
+        )
+        print(f"  Missing value replacements (invalid content): {formatted_counts}")
+    else:
+        print("  No target columns found for missing value normalization")
+
+    # Step 3: detect markup records for reporting only (no before/after exports).
     markup_records, detection_result = find_records_with_markup(cleaned_df, column='Description')
 
-    # Step 3: remove gender marker variants from title/description text.
+    # Step 4: remove gender marker variants from title/description text.
     cleaned_df, gender_marker_counts = clean_gender_markers_in_columns(cleaned_df)
     if gender_marker_counts:
         for column, count in gender_marker_counts.items():
@@ -723,30 +765,7 @@ def preprocess_job_postings(data):
     else:
         print("  No target columns found for gender marker cleaning")
 
-    # Step 4: derive country from location (keep rows even if country is missing).
-    cleaned_df = add_country_from_location(cleaned_df)
-    if 'Location' in cleaned_df.columns and 'Country' in cleaned_df.columns:
-        columns = list(cleaned_df.columns)
-        location_index = columns.index('Location')
-        columns.remove('Country')
-        columns.insert(location_index + 1, 'Country')
-        cleaned_df = cleaned_df[columns]
-
-    # Step 5: derive work modality from primary description.
-    cleaned_df, modality_filled, modality_missing = add_work_modality_from_primary_description(cleaned_df)
-    if 'Primary Description' in cleaned_df.columns and 'Work Modality' in cleaned_df.columns:
-        columns = list(cleaned_df.columns)
-        primary_index = columns.index('Primary Description')
-        columns.remove('Work Modality')
-        columns.insert(primary_index + 1, 'Work Modality')
-        cleaned_df = cleaned_df[columns]
-
-    print(
-        "  Work modality extraction: "
-        f"filled={modality_filled}, missing={modality_missing}"
-    )
-
-    # Step 6: remove markup-like content from descriptions and save "after" examples.
+    # Step 5: remove markup-like content from descriptions and save "after" examples.
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,
@@ -766,7 +785,7 @@ def preprocess_job_postings(data):
         print(f"    Removed by category: {', '.join(removed_categories)}")
 
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
-    # Step 7: clean Skill feature boilerplate.
+    # Step 6: clean Skill feature boilerplate.
     cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
     if 'Skill' in cleaned_df.columns:
         print(
@@ -778,18 +797,39 @@ def preprocess_job_postings(data):
     else:
         print("  Skill column not found for Skill cleanup")
 
-    # Step 8: normalize invalid content values to missing markers.
-    missing_columns = ['Description', 'Primary Description', 'Location', 'Skill']
-    cleaned_df, missing_counts = normalize_invalid_to_missing(cleaned_df, missing_columns)
-    if missing_counts:
-        formatted_counts = ', '.join(
-            f"{column}={count}" for column, count in missing_counts.items()
-        )
-        print(f"  Missing value replacements (invalid content): {formatted_counts}")
-    else:
-        print("  No target columns found for missing value normalization")
+    # Step 7: derive country from location (keep rows even if country is missing).
+    cleaned_df = add_country_from_location(cleaned_df)
+    if 'Location' in cleaned_df.columns and 'Country' in cleaned_df.columns:
+        columns = list(cleaned_df.columns)
+        location_index = columns.index('Location')
+        columns.remove('Country')
+        columns.insert(location_index + 1, 'Country')
+        cleaned_df = cleaned_df[columns]
 
-    # Step 9: remove rows where every critical field is invalid.
+    # Step 8: derive work modality from primary description.
+    cleaned_df, modality_filled, modality_missing = add_work_modality_from_primary_description(cleaned_df)
+    if 'Primary Description' in cleaned_df.columns and 'Work Modality' in cleaned_df.columns:
+        columns = list(cleaned_df.columns)
+        primary_index = columns.index('Primary Description')
+        columns.remove('Work Modality')
+        columns.insert(primary_index + 1, 'Work Modality')
+        cleaned_df = cleaned_df[columns]
+
+    print(
+        "  Work modality extraction: "
+        f"filled={modality_filled}, missing={modality_missing}"
+    )
+
+    # Step 9: derive company from primary description.
+    cleaned_df = add_company_from_primary_description(cleaned_df)
+    if 'Description' in cleaned_df.columns and 'Company' in cleaned_df.columns:
+        columns = list(cleaned_df.columns)
+        description_index = columns.index('Description')
+        columns.remove('Company')
+        columns.insert(description_index + 1, 'Company')
+        cleaned_df = cleaned_df[columns]
+
+    # Step 10: remove rows where every critical field is invalid.
     cleaned_df, invalid_records, checked_fields = remove_records_with_all_critical_fields_invalid(cleaned_df)
 
     if checked_fields:
