@@ -81,6 +81,18 @@ docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode f
 # Data preprocessing (quick sample)
 docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode sample --sample-size 500
 
+# Translation (sample)
+docker-compose exec app python src/preprocessing/translate_preprocessed.py --run-mode sample --sample-size 500
+
+# Translation (full)
+docker-compose exec app python src/preprocessing/translate_preprocessed.py --run-mode full
+
+# Load preprocessed data into DB (full)
+docker-compose exec app python src/preprocessing/load_preprocessed_to_db.py
+
+# Load preprocessed data into DB (sample)
+docker-compose exec app python src/preprocessing/load_preprocessed_to_db.py --run-mode sample --sample-size 500
+
 # Minimal webapp
 docker-compose exec app python webapp/app.py
 # Open: http://localhost:5000
