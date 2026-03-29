@@ -89,8 +89,9 @@ docker-compose exec app python src/preprocessing/translate_preprocessed.py --run
 
 # Load preprocessed data into DB (full)
 docker-compose exec app python src/preprocessing/load_preprocessed_to_db.py
+docker-compose exec app python src/preprocessing/load_ecsf_to_db.py
 
-# Load preprocessed data into DB (sample)
+# Load preprocessed data into DB (sample of job postings)
 docker-compose exec app python src/preprocessing/load_preprocessed_to_db.py --run-mode sample --sample-size 500
 
 # Minimal webapp
