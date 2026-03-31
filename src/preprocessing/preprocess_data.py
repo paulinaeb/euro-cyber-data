@@ -378,11 +378,17 @@ LOCATION_TO_COUNTRY_OVERRIDES = {
     "Zagreb Metropolitan Area": "Croatia",
     "Zielona Gora Metropolitan Area": "Poland",
     "s-Hertogenbosch Area": "Netherlands",
-    "Åland Islands": "Finland",
+    "Mariehamn, Mariehamn sub-region, Åland Islands": "Finland",
+    "Greater Córdoba, Spain Area": "Spain",
+    "Greater León, Spain Area": "Spain",
+    "Florence, Italy Metropolitan Area": "Italy",
+    "Saarland": "Germany",
+    "Toledo, Spain Metropolitan Area": "Spain",
+    "Kingston upon Hull, England Metropolitan Area" : "United Kingdom",
 }
 
 NON_COUNTRY_LOCATION_PATTERN = re.compile(
-    r'EMEA|European Union|European Economic Area',
+    r'EMEA|European Union|European Economic Area|Schengen Area|DACH|Benelux|Nordics',
     flags=re.IGNORECASE,
 )
 
@@ -1060,10 +1066,23 @@ def preprocess_job_postings(data):
     else:
         print("  No target columns found for missing value normalization")
 
-    # Step 3: detect markup records for reporting only (no before/after exports).
+    # Step 3: drop disallowed locations entirely.
+    if 'Location' in cleaned_df.columns:
+        disallowed_locations = {
+            'Middle East',
+            'Washington DC-Baltimore Area',
+            'Mexico',
+        }
+        disallowed_mask = cleaned_df['Location'].isin(disallowed_locations)
+        removed_disallowed = int(disallowed_mask.sum())
+        if removed_disallowed > 0:
+            cleaned_df = cleaned_df[~disallowed_mask].copy()
+            print(f"  Disallowed locations removed: {removed_disallowed}")
+
+    # Step 4: detect markup records for reporting only (no before/after exports).
     markup_records, detection_result = find_records_with_markup(cleaned_df, column='Description')
 
-    # Step 4: remove gender marker variants from title/description text.
+    # Step 5: remove gender marker variants from title/description text.
     cleaned_df, gender_marker_counts = clean_gender_markers_in_columns(cleaned_df)
     if gender_marker_counts:
         for column, count in gender_marker_counts.items():
@@ -1071,7 +1090,7 @@ def preprocess_job_postings(data):
     else:
         print("  No target columns found for gender marker cleaning")
 
-    # Step 5: remove markup-like content from descriptions and save "after" examples.
+    # Step 6: remove markup-like content from descriptions and save "after" examples.
     cleaned_df, markup_records_cleaned, remaining_markup_count, description_block_stats = clean_description_markup(
         cleaned_df,
         before_examples_path=None,
@@ -1097,7 +1116,7 @@ def preprocess_job_postings(data):
         print(f"    Removed by category: {', '.join(removed_categories)}")
 
     print(f"  Description records with markup details: detected={len(markup_records)}, remaining after cleaning={remaining_markup_count}")
-    # Step 6: clean Skill feature boilerplate.
+    # Step 7: clean Skill feature boilerplate.
     cleaned_df, skill_clean_stats = clean_skill_feature(cleaned_df, column='Skill')
     if 'Skill' in cleaned_df.columns:
         print(
@@ -1109,7 +1128,7 @@ def preprocess_job_postings(data):
     else:
         print("  Skill column not found for Skill cleanup")
 
-    # Step 7: derive country from location (keep rows even if country is missing).
+    # Step 8: derive country from location (keep rows even if country is missing).
     cleaned_df = add_country_from_location(cleaned_df)
     if 'Location' in cleaned_df.columns and 'Country' in cleaned_df.columns:
         columns = list(cleaned_df.columns)
@@ -1118,7 +1137,7 @@ def preprocess_job_postings(data):
         columns.insert(location_index + 1, 'Country')
         cleaned_df = cleaned_df[columns]
 
-    # Step 8: derive work modality from primary description.
+    # Step 9: derive work modality from primary description.
     cleaned_df, modality_filled, modality_missing = add_work_modality_from_primary_description(cleaned_df)
     if 'Primary Description' in cleaned_df.columns and 'Work Modality' in cleaned_df.columns:
         columns = list(cleaned_df.columns)
@@ -1132,7 +1151,7 @@ def preprocess_job_postings(data):
         f"filled={modality_filled}, missing={modality_missing}"
     )
 
-    # Step 9: derive company from primary description.
+    # Step 10: derive company from primary description.
     cleaned_df = add_company_from_primary_description(cleaned_df)
     if 'Description' in cleaned_df.columns and 'Company' in cleaned_df.columns:
         columns = list(cleaned_df.columns)
@@ -1141,7 +1160,7 @@ def preprocess_job_postings(data):
         columns.insert(description_index + 1, 'Company')
         cleaned_df = cleaned_df[columns]
 
-    # Step 10: remove rows where every critical field is invalid.
+    # Step 11: remove rows where every critical field is invalid.
     cleaned_df, invalid_records, checked_fields = remove_records_with_all_critical_fields_invalid(cleaned_df)
 
     if checked_fields:
