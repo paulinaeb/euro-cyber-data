@@ -43,6 +43,21 @@ def _should_translate(lang_code):
     return lang_code != "en"
 
 
+def _translate_text(text, translator, max_chars=4000):
+    if len(text) <= max_chars:
+        return translator.translate(text, dest="en").text
+
+    chunks = []
+    for start in range(0, len(text), max_chars):
+        chunks.append(text[start:start + max_chars])
+
+    translated_chunks = []
+    for chunk in chunks:
+        translated_chunks.append(translator.translate(chunk, dest="en").text)
+
+    return "".join(translated_chunks)
+
+
 def translate_fields(df, fields, progress_every=100):
     """Translate non-English text in specified fields. Returns df and stats."""
     translator = _get_translator()
@@ -71,14 +86,15 @@ def translate_fields(df, fields, progress_every=100):
                 continue
 
             text = str(value)
-            lang_code = _detect_language(text)
+            snippet = text[:1000]
+            lang_code = _detect_language(snippet)
             if not _should_translate(lang_code):
                 translated_values.append(text)
                 stats[field]["skipped"] += 1
                 continue
 
             try:
-                translated = translator.translate(text, dest="en").text
+                translated = _translate_text(text, translator)
                 translated_values.append(translated)
                 stats[field]["translated"] += 1
             except Exception:
