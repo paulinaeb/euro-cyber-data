@@ -9,27 +9,43 @@
 <body>
     <div class="container">
         <header>
-            <h1>🎓 Euro Cyber Data</h1>
-            <p>Skills Mapping: Job Market → ECSF Framework</p>
+            <div class="header-inner">
+                <div>
+                    <p class="eyebrow">Euro Cyber Data</p>
+                    <h1>Skills Mapping Console</h1>
+                    <p class="subtitle">Job market skills matched to ECSF using SBERT.</p>
+                </div>
+                <a class="button" href="{{ url_for('mapping') }}">View mappings</a>
+            </div>
         </header>
 
         <main>
-            <div class="placeholder">
-                <h2>Dashboard under construction</h2>
-                <p>The pipeline must be completed before data can be visualized.</p>
-                <p>Pending steps:</p>
-                <ul>
-                    <li>✓ Data preparation</li>
-                    <li>⏳ Skill extraction</li>
-                    <li>⏳ Embedding generation</li>
-                    <li>⏳ Similarity calculation</li>
-                    <li>⏳ Final mapping</li>
-                </ul>
-            </div>
+            <section class="panel">
+                <h2>What is shown</h2>
+                <p>
+                    The mapping view lists each normalized skill with its top ECSF matches
+                    and similarity scores. Filters let you control the top-k and threshold.
+                </p>
+            </section>
+
+            <section class="panel grid">
+                <div>
+                    <h3>Inputs</h3>
+                    <p>Skill list from job postings and ECSF TKS text.</p>
+                </div>
+                <div>
+                    <h3>Model</h3>
+                    <p>SentenceTransformer SBERT (all-MiniLM-L6-v2).</p>
+                </div>
+                <div>
+                    <h3>Output</h3>
+                    <p>Interpretable top-k matches stored in a SQL view.</p>
+                </div>
+            </section>
         </main>
 
         <footer>
-            <p>Master Thesis Project | 2026</p>
+            <p>By Espejo Paulina | Master Thesis Project | 2026</p>
         </footer>
     </div>
 </body>
