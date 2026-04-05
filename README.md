@@ -75,6 +75,9 @@ docker-compose exec app python src/preprocessing/explore_data.py --run-mode samp
 # full exploration - might take around 3 hours
 docker-compose exec app python src/preprocessing/explore_data.py --language-mode full
 
+# Generate word clouds (raw data)
+docker-compose exec app python src/visualization/wordclouds.py
+
 # Data preprocessing (full dataset)
 docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode full
 
@@ -114,6 +117,9 @@ docker-compose exec app python src/similarity/compute_similarity.py
 
 # Create mapping view (interpretable results)
 docker-compose exec app python src/mapping/create_mapping_view.py
+
+# Evaluation 
+docker-compose exec app python src/similarity/evaluate_similarity.py
 
 # Minimal webapp
 docker-compose exec app python webapp/app.py
