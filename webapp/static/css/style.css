@@ -26,18 +26,19 @@ body {
         radial-gradient(circle at 80% 20%, #d6f3f3 0%, transparent 45%),
         linear-gradient(130deg, #f5f1ea 0%, #efe6d6 100%);
     color: var(--ink);
-    padding: 28px;
+    padding: 0;
     min-height: 100vh;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: none;
+    width: 100%;
+    margin: 0;
     background: var(--panel);
-    border-radius: 22px;
-    box-shadow: 0 20px 50px var(--shadow);
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 0;
 }
 
 header {
@@ -50,6 +51,13 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 24px;
+    align-items: center;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -74,7 +82,7 @@ header h1 {
 }
 
 main {
-    padding: 40px;
+    padding: 40px 56px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -104,6 +112,12 @@ main {
     gap: 20px;
 }
 
+.split {
+    display: grid;
+    grid-template-columns: minmax(320px, 1.2fr) minmax(320px, 0.8fr);
+    gap: 24px;
+}
+
 .filters {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -128,10 +142,32 @@ main {
     font-family: "Space Grotesk", sans-serif;
 }
 
+.field select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: "Space Grotesk", sans-serif;
+    background: #ffffff;
+}
+
 .actions {
     display: flex;
     gap: 12px;
     align-items: flex-end;
+}
+
+.chart-toggle {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.button-active {
+    background: var(--accent-dark);
+    color: #ffffff;
+    border-color: var(--accent-dark);
+    box-shadow: none;
 }
 
 .button {
@@ -173,6 +209,13 @@ main .button.ghost {
     margin-bottom: 18px;
 }
 
+.panel-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .meta {
     font-size: 0.85em;
     color: var(--slate);
@@ -180,6 +223,104 @@ main .button.ghost {
 
 .table-wrap {
     overflow-x: auto;
+}
+
+.chart-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.chart-wrap canvas {
+    min-height: 360px;
+}
+
+.map-wrap {
+    height: 740px;
+    margin-top: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.country-label {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(16, 24, 32, 0.1);
+    border-radius: 8px;
+    padding: 4px 6px;
+    font-size: 11px;
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--slate);
+    box-shadow: 0 4px 10px rgba(16, 24, 32, 0.08);
+}
+
+.country-count-label {
+    color: gray;
+    background-color: rgb(255, 255, 255);
+    border-radius: 999px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 22px;
+    min-width: 40px;
+    height: 15px;
+    text-align: center;
+    padding: 0 2px;
+    box-shadow: 0 2px 8px rgba(16, 24, 32, 0.3);
+    pointer-events: none;
+}
+
+.map-legend {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--slate);
+    line-height: 1.4;
+}
+
+.map-legend h4 {
+    margin-bottom: 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.map-legend .swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.map-error {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    color: var(--slate);
+    background: #f8f2e8;
+}
+
+.country-summary {
+    margin-bottom: 18px;
+    background: #fff5e7;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+}
+
+.country-summary ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.country-summary li {
+    margin-bottom: 6px;
 }
 
 table {
@@ -269,11 +410,19 @@ footer {
     }
 
     main {
-        padding: 28px;
+        padding: 24px;
     }
 
     .actions {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .split {
+        grid-template-columns: 1fr;
+    }
+
+    .map-wrap {
+        height: 360px;
     }
 }
