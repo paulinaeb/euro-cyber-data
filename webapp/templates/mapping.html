@@ -32,8 +32,8 @@
                         <input type="number" id="top_k" name="top_k" min="1" max="25" value="{{ top_k }}">
                     </div>
                     <div class="field">
-                        <label for="min_similarity">Min similarity</label>
-                        <input type="number" id="min_similarity" name="min_similarity" step="0.01" min="0" max="1" value="{{ min_similarity }}">
+                        <label for="similarity_at">Similarity at</label>
+                        <input type="number" id="similarity_at" name="similarity_at" step="0.1" min="0" max="1" value="{{ similarity_at }}">
                     </div>
                     <div class="field">
                         <label for="model_name">Model</label>
@@ -53,7 +53,7 @@
             <section class="panel">
                 <div class="panel-header">
                     <h2>Results</h2>
-                    <span class="meta">{{ total_rows }} rows</span>
+                    <span class="meta">{{ total_rows }} rows | band [{{ "%.2f"|format(similarity_at) }}, {{ "%.2f"|format(similarity_upper) }})</span>
                 </div>
 
                 {% if error %}
