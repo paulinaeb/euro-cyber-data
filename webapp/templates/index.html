@@ -15,7 +15,11 @@
                     <h1>Skills Mapping Console</h1>
                     <p class="subtitle">Job market skills matched to ECSF using SBERT.</p>
                 </div>
-                <a class="button" href="{{ url_for('mapping') }}">View mappings</a>
+                <div class="header-actions">
+                    <a class="button" href="{{ url_for('mapping') }}">View mappings</a>
+                    <a class="button ghost" href="{{ url_for('frequency') }}">Skill frequency</a>
+                    <a class="button ghost" href="{{ url_for('geo_summary') }}">EU skill map</a>
+                </div>
             </div>
         </header>
 
