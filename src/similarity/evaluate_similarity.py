@@ -61,7 +61,7 @@ def main():
     )
     parser.add_argument(
         "--thresholds",
-        default="0.6,0.7",
+        default="0.55,0.65,0.75",
         help="Comma-separated similarity thresholds",
     )
     args = parser.parse_args()

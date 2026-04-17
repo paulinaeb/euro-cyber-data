@@ -105,7 +105,7 @@ def parse_args():
         help="Model name to filter embeddings",
     )
     parser.add_argument("--top-k", type=int, default=3)
-    parser.add_argument("--min-similarity", type=float, default=0.50)
+    parser.add_argument("--min-similarity", type=float, default=0.55)
     parser.add_argument("--batch-size", type=int, default=256)
     return parser.parse_args()
 

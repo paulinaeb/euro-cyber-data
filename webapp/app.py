@@ -8,6 +8,8 @@ from src.utils.database import db
 
 app = Flask(__name__)
 
+SIMILARITY_OPTIONS = (0.55, 0.65, 0.75)
+
 EU_COUNTRIES = {
     "Austria",
     "Belgium",
@@ -52,9 +54,13 @@ def mapping():
         "model_name", "sentence-transformers/all-MiniLM-L6-v2"
     )
     top_k = int(request.args.get("top_k", 3))
-    similarity_at = float(request.args.get("similarity_at", 0.50))
-    similarity_at = max(min(similarity_at, 0.9), 0.0)
-    similarity_upper = min(similarity_at + 0.10, 1.0)
+    similarity_at = float(request.args.get("similarity_at", SIMILARITY_OPTIONS[0]))
+    if similarity_at not in SIMILARITY_OPTIONS:
+        similarity_at = SIMILARITY_OPTIONS[0]
+    if similarity_at == 0.75:
+        similarity_upper = 1.0
+    else:
+        similarity_upper = min(similarity_at + 0.10, 1.0)
     skill_query = request.args.get("skill", "").strip()
     page = max(int(request.args.get("page", 1)), 1)
     page_size = int(request.args.get("page_size", 50))
@@ -138,6 +144,7 @@ def mapping():
         top_k=top_k,
         similarity_at=similarity_at,
         similarity_upper=similarity_upper,
+        similarity_options=SIMILARITY_OPTIONS,
         skill_query=skill_query,
         page=page,
         page_size=page_size,
