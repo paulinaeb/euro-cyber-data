@@ -2,7 +2,7 @@
 
 Dockerized Python pipeline that runs on PostgreSQL, processes job-posting and ECSF data, extracts and maps skills with S-BERT embeddings, evaluates results with similarity metrics, and exposes a minimal Flask webapp for inspection.
 
-## Project Structure
+## 🧱 Project Structure
 
 ```
 euro-cyber-data/
@@ -25,7 +25,7 @@ euro-cyber-data/
 └── requirements.txt
 ```
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Python 3.11** - Core language
 - **PostgreSQL 15** - Database
@@ -33,9 +33,9 @@ euro-cyber-data/
 - **S-BERT** (sentence-transformers) - Multilingual embeddings
 - **Flask** - Minimal web dashboard
 
-## Setup
+## ⚙️ Setup
 
-### 1. Environment Configuration
+### 1. 🌱 Environment Configuration
 ```bash
 # Copy environment template
 cp .env.example .env
@@ -43,7 +43,7 @@ cp .env.example .env
 # Edit .env if needed (DB credentials, model names, etc.)
 ```
 
-### 2. Build and Start Containers
+### 2. 🚀 Build and Start Containers
 ```bash
 # Build Docker images
 docker-compose build
@@ -55,9 +55,9 @@ docker-compose up -d
 docker-compose ps
 ```
 
-## Usage
+## ▶️ Usage
 
-### Run Scripts Inside Container
+### 🧪 Run Scripts Inside Container
 
 Most preprocessing scripts support the same execution pattern:
 
@@ -68,7 +68,7 @@ Most preprocessing scripts support the same execution pattern:
 
 Use sample mode first when you are checking logic, timings, or output shape. Switch to full mode only when you are ready for the complete pipeline run.
 
-#### Sample-First Commands
+#### 🔎 Sample-First Commands
 ```bash
 # Data exploration on a small subset
 docker-compose exec app python src/preprocessing/explore_data.py --run-mode sample --sample-size 500
@@ -86,7 +86,7 @@ docker-compose exec app python src/preprocessing/translate_preprocessed.py --run
 docker-compose exec app python src/preprocessing/load_preprocessed_to_db.py --run-mode sample --sample-size 500
 ```
 
-#### Full-Run Commands
+#### 🧾 Full-Run Commands
 ```bash
 # Full data exploration
 docker-compose exec app python src/preprocessing/explore_data.py --language-mode full
@@ -133,13 +133,13 @@ docker-compose exec app python webapp/app.py
 # Open: http://localhost:5000
 ```
 
-### Database Access
+### 🗄️ Database Access
 ```bash
 # Connect to PostgreSQL
 docker-compose exec postgres psql -U postgres -d euro_cyber_db
 ```
 
-### pgAdmin Web UI
+### 🌐 pgAdmin Web UI
 
 Open http://localhost:5050 and log in with:
 
@@ -154,7 +154,7 @@ Then add a new server in pgAdmin:
 - Username: `postgres`
 - Password: `postgres`
 
-### Clean Restart
+### 🔄 Clean Restart
 ```bash
 # Stop and remove all containers + volumes
 docker-compose down -v
