@@ -57,6 +57,25 @@ docker-compose up -d
 docker-compose ps
 ```
 
+### 🗄️ Database Access
+
+```bash
+# Connect to PostgreSQL
+docker-compose exec postgres psql -U postgres -d euro_cyber_db
+```
+
+### 🌐 pgAdmin Web UI
+
+Open http://localhost:5050 and log in with your credentials (or default ones). Then add a new server in pgAdmin:
+
+- Host name/address: `postgres`
+- Port: `5432`
+- Maintenance DB: `euro_cyber_db`
+- Username: `postgres`
+- Password: `postgres`
+
+From the interfarce it'll be possible to validate table creation, insertions and run supporting queries, if needed!
+
 ### 3. 📥 Job Postings Dataset Snapshot
 
 To execute the pipeline, download the desired dataset snapshot from [Google Drive](https://drive.google.com/drive/folders/1urAJnf09u8cNFBN0kFm_UZH3Lhh8oBRa), rename it to `job_postings.json`, and place it in `data/raw/`.
@@ -134,31 +153,10 @@ docker-compose exec app python src/mapping/create_mapping_view.py
 # Evaluation
 docker-compose exec app python src/similarity/evaluate_similarity.py
 
-# Minimal webapp
+# Minimal webapp - ready to analyse the mappings and visualisations!
 docker-compose exec app python webapp/app.py
 # Open: http://localhost:5000
 ```
-
-### 🗄️ Database Access
-```bash
-# Connect to PostgreSQL
-docker-compose exec postgres psql -U postgres -d euro_cyber_db
-```
-
-### 🌐 pgAdmin Web UI
-
-Open http://localhost:5050 and log in with:
-
-- Email: value of `PGADMIN_DEFAULT_EMAIL` (default: `admin@local.dev`)
-- Password: value of `PGADMIN_DEFAULT_PASSWORD` (default: `admin`)
-
-Then add a new server in pgAdmin:
-
-- Host name/address: `postgres`
-- Port: `5432`
-- Maintenance DB: `euro_cyber_db`
-- Username: `postgres`
-- Password: `postgres`
 
 ### 🔄 Clean Restart
 ```bash
