@@ -18,8 +18,6 @@ euro-cyber-data/
 │   ├── similarity/       # Similarity computation
 │   ├── mapping/          # Final mapping logic
 │   └── utils/            # Utilities (DB, config)
-├── database/
-│   └── schema.sql        # PostgreSQL schema
 ├── webapp/               # Minimal Flask dashboard (placeholder)
 ├── docker/
 │   └── Dockerfile
