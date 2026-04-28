@@ -120,7 +120,7 @@ docker-compose exec app python src/visualization/wordclouds.py
 # Data preprocessing
 docker-compose exec app python src/preprocessing/preprocess_data.py --run-mode full
 
-# Translation
+# Translation - optional! it does not affect the current method directly.
 docker-compose exec app python src/preprocessing/translate_preprocessed.py --run-mode full
 
 # Load preprocessed data into DB
